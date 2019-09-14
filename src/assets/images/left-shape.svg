@@ -1,0 +1,13 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 600 400" style="enable-background:new 0 0 600 400;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+</style>
+<title>left-shape</title>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="43.9446" y1="-16.9168" x2="516.9221" y2="456.0607" gradientTransform="matrix(1 0 0 -1 0 400)">
+	<stop  offset="0" style="stop-color:#7861EE;stop-opacity:0.2"/>
+	<stop  offset="1" style="stop-color:#2D1C7B;stop-opacity:1.000000e-02"/>
+</linearGradient>
+<path class="st0" d="M463,400H46c-25.4-0.1-45.9-20.6-46-46V46C0.1,20.6,20.6,0.1,46,0h508c25,0.1,45.5,20.1,46,45.1
+	c0,0.6-0.9,6.3-1,6.9l-70,298C521,386,495,400,463,400z"/>
+</svg>
