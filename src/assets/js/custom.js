@@ -1,17 +1,5 @@
 import $ from 'jquery';
 
-$(document).ready(function () {
-    var divLoc = $('.lecture-s_next').offset();
-    if (divLoc) {
-        $('.left-sidebar').animate({ scrollTop: divLoc.top - 218 }, "slow");
-    }
-})
-
-$(window).on('load',function () {
-    $('.faloder').html('');
-});
-
-
 $(document).on('keyup', '.float-input', function () {
     if ($(this).val()) {
         $(this).parents('.ci-type').addClass('float-control');
@@ -86,3 +74,16 @@ $(document).on('keyup','#search_bar',function () {
         $('#nocoursetitle').html('<h2 class="text-center w-100">Courses Not Found</h2>');
     }
 });
+
+
+
+$(window).on('load', function () {
+    var video = document.getElementById('my-video');
+    if (video) {
+        video.addEventListener('ended', function () {
+            alert();
+            // $('#complete').click();
+        });
+    }
+});
+

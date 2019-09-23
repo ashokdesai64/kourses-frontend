@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class All_course extends Component {
@@ -23,7 +24,7 @@ class All_course extends Component {
 
     render() {
         if (this.state.isLoading) {
-            return <p>Loading ...</p>;
+            return false;
         }
         return (
             <div className="dropdown filter-dropdown">
@@ -32,10 +33,10 @@ class All_course extends Component {
                     aria-haspopup="true" aria-expanded="false">All</a>
 
                 <div className="dropdown-menu" aria-labelledby="filter-dropdown1">
-                    <a className="dropdown-item" href="/all_course">All</a>
+                    <Link className="dropdown-item" to="/all_course">All</Link>
                     {
                         this.state.author.map((obj, key) =>
-                            <a key={key} className="dropdown-item" href={"/all_course/author/" + obj.authorid}>{obj.username}({obj.count})</a>
+                            <Link key={key} className="dropdown-item" to={`/all_course/author/${obj.authorid}`}>{obj.username}({obj.count})</Link>
                         )
                     }
                 </div>  

@@ -4,6 +4,7 @@ import OwlCarousel from 'react-owl-carousel';
 import Courseheader from '../component/course_header';
 import Coursebody from '../component/course_body';
 import Coursefooter from '../component/course_footer';
+import Helper from './genral_helper';
 
 
 class All_course extends Component {
@@ -65,7 +66,7 @@ class All_course extends Component {
                         {
                             this.state.course.map((obj, key) =>
                                 <div className="item course-card mb-3" key={key}>
-                                    <Courseheader lecture={obj.L_c} lesson={obj.l_c} image={obj.image} />
+                                    <Courseheader action_līnk={Helper.get_user() ? '/enroll/' + obj.course_slug + '' : '/courses/' + obj.course_slug + ''} lecture={obj.L_c} lesson={obj.l_c} image={obj.image} />
                                     <Coursebody title={obj.title} subtitle={obj.subtitle} />
                                     <Coursefooter title={true} username={obj.auhtorname} image={obj.auhtorimage} />
                                 </div>

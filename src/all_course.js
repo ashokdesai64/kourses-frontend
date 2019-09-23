@@ -27,7 +27,7 @@ class All_course extends Component {
         let post_data = "";
         if (Helper.get_user()){
             link = "http://localhost:8080/complete_course_detail";
-            post_data = { id: Helper.get_user('id')};
+            post_data = { id: Helper.get_user('_id')};
         }else{
             link = "http://localhost:8080/course_detail";
             post_data = "";
@@ -54,6 +54,13 @@ class All_course extends Component {
 
     
     render() {
+        if (this.state.isLoading) {
+            return <div className="loader-container">
+                <div className="progress-loader float shadow-loder">
+                    <div className="progress__item"></div>
+                </div>
+            </div>;
+        }
         return (
             <React.Fragment >
              <Header/>
@@ -79,8 +86,8 @@ class All_course extends Component {
                         {
                             this.state.course.map((obj,key) =>
                                 <div key={key} className="col-12 col-sm-12 col-md-6 col-lg-4" id="search-filter">
-                                    <Link to={Helper.get_user() ? '/enroll/' + obj.course_slug + '' : '/course/' + obj.course_slug + ''} className="course-card enroll-course_card">
-                                        <Courseheader lecture={obj.L_c} lesson={obj.l_c} image={obj.image} />
+                                    <Link to={Helper.get_user() ? '/enroll/' + obj.course_slug + '' : '/courses/' + obj.course_slug + ''} className="course-card enroll-course_card">
+                                        <Courseheader action_līnk={Helper.get_user() ? '/enroll/' + obj.course_slug + '' : '/courses/' + obj.course_slug + ''} lecture={obj.L_c} lesson={obj.l_c} image={obj.image} />
                                         {Helper.get_user() ? (
                                             <div className="course-card-body">
                                             <h2>{obj.title}</h2>

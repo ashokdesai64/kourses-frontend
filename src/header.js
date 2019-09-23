@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import logo from '../src/assets/images/logo-white.png';
 import Helper from "../src/services/genral_helper";
 
@@ -8,9 +9,9 @@ function header_call() {
         <header>
             <div className="container">
                 <nav className="navbar navbar-expand-lg">
-                    <a className="navbar-brand" href="home">
+                    <Link className="navbar-brand" to="/home">
                         <img src={logo} className="align-top" width="150" alt="" />
-                    </a>
+                    </Link>
                     <button className="navbar-toggler menu-toggle-btn" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -20,27 +21,27 @@ function header_call() {
                     <div className="collapse navbar-collapse header-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ml-auto header-nav">
                             <li className="nav-item ">
-                                    <a className="nav-link" href="/all_course">All Courses</a>
+                                <Link className="nav-link" to='/all_course' >All Course</Link>
                             </li>
                             <li className="nav-item ">
-                                <a className="nav-link" href="/learn">Learning Paths</a>
+                                    <Link className="nav-link" to="/learn-path">Learning Paths</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/about">About</a>
+                                <Link className="nav-link" to="/about">About</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/contact">Contact</a>
+                                <Link className="nav-link" to="/home">Contact</Link>
                             </li>   
                             { Helper.get_user() ? (
                                 <div>
                                     <li className="nav-item">
                                         <div className="dropdown profile-menu">
-                                            <a className="profile-dropodwn" href="#demo" role="button" id="filter-dropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <Link className="profile-dropodwn" to="/home" role="button" id="filter-dropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <img src="https://kourses-codeigniter.qseksolutions.com/assets/back-end/user_profile/no-user.jpg" width="40px" height="40px" 
                                                     style={{ 'borderRadius': '50px' }} alt="" />
-                                            </a>
+                                            </Link>
                                             <div className="dropdown-menu" aria-labelledby="filter-dropdown1">
-                                                <a className="dropdown-item logout" href="#demo">Logout</a>
+                                                <Link className="dropdown-item logout" to="/home">Logout</Link>
                                             </div>
                                         </div>
                                     </li>

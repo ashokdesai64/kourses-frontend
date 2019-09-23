@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../src/header';
 import Footer from '../src/footer';
 import Apicall from './services/get_course_all';
@@ -18,7 +19,7 @@ class home extends Component {
                 <div className="landing-text">
                   <h1>Learn the Skills to Land Your Dream Job</h1>
                   <p>Clear, concise and practical training with no fluff</p>
-                  <a href="#text" role="button" className="btn btn-shape btn-shape-xl btn-shape-primary">Join 5000+ Happy Students</a>
+                  <Link to="/home" role="button" className="btn btn-shape btn-shape-xl btn-shape-primary">Join 5000+ Happy Students</Link>
                 </div>
               </div>
             </div>

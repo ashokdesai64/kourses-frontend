@@ -18,7 +18,10 @@ class single_course extends Component {
 
     componentDidMount() {
         this.setState({ isLoading: true });
-        axios.get('http://localhost:8080/course_single/' + this.props.match.params.course+'')
+        axios.post('http://localhost:8080/course_single', {
+            course: this.props.match.params.course,
+            // userid: Helper.get_user('_id')
+        })
             .then((value) => {
                 this.setState({ course: value.data.data });
                 this.setState({ isLoading: false });

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+
 
 
 class All_course extends Component {
@@ -23,7 +25,7 @@ class All_course extends Component {
 
     render() {
         if (this.state.isLoading) {
-            return <p>Loading ...</p>;
+            return false;
         }
         return (
             <div className="dropdown filter-dropdown">
@@ -32,10 +34,10 @@ class All_course extends Component {
                     aria-haspopup="true" aria-expanded="false">All</a>
 
                 <div className="dropdown-menu" aria-labelledby="filter-dropdown2">
-                    <a className="dropdown-item" href="/all_course">All</a>
+                    <Link className="dropdown-item" to="/all_course">All</Link>
                     {
                         this.state.category.map((obj, key) =>
-                            <a key={key} className="dropdown-item" href={"/all_course/category/" + obj.categoryid}>{obj.name}({obj.count})</a>
+                            <Link key={key} className="dropdown-item" to={`/all_course/category/${obj.categoryid}`}>{obj.name}({obj.count})</Link>
                         )
                     }
                 </div>
