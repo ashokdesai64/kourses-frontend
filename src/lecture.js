@@ -121,6 +121,7 @@ class All_course extends Component {
                             <Link to={detail.pre} style={{ width: !detail.next && '100%', display: !detail.pre && 'none' }} className="btn btn-shape btn-shape-primary"><img alt="" src="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/left-arrow.svg" className="img-fluid long-arrow arrow-left" /> Previous</Link>
                             <Link to={detail.next} onClick={((e) => this.handleClick(e, data))} style={{ width: !detail.pre && '100%', display: !detail.next && 'none' }}  id="complete" data-id={Helper.get_user('_id')} className="complete_course_click btn btn-shape btn-shape_flip btn-shape-warning complete_lecture">Complete and Next <img alt="" src="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/left-arrow.svg" className="img-fluid long-arrow arrow-right" /></Link>
                         </div>
+                        
                         <input type="hidden" value={detail.single_lecture.courseid} id="course_id"></input>
                         <input type="hidden" value={detail.single_lecture.lessonid} id="lesson_id"></input>
                         <input type="hidden" value={detail.single_lecture._id} id="lecture_id"></input>
@@ -158,20 +159,20 @@ class All_course extends Component {
                                         value.type === "2" ? (
                                             <div className="zip-download">
                                                 <label className="zip-download_label">Download Zip</label>
-                                                <a href="https://drive.google.com/uc?export=download&amp;id=<?php echo $pdf[1] ?>" className="btn btn-link zip-download_link"><i className="far fa-file-archive"></i>{value.data_title}.zip </a>
+                                                <a rel="noopener noreferrer" target="_blank" href={"https://drive.google.com/uc?export=download&id=" + value['data_link'].split("=")[1]} className="btn btn-link zip-download_link"><i className="far fa-file-archive"></i>{value.data_title}.zip </a>
                                             </div>
                                         ) : (
                                             <div className="enroll-curri_content scrollbar-inner lecture-curri_content">
                                                 {
                                                     value.type !== "3" && (
                                                         <div className="lecture-pdf">
-                                                            <iframe id="" title="dawonload" src="https://drive.google.com/file/d/<?php echo $pdf[1] ?>/preview"></iframe>
+                                                                <iframe id="" title="dawonload" src={"https://drive.google.com/file/d/" + value['data_link'].split("=")[1]+"/preview"}></iframe>
                                                         </div>
                                                     )
                                                 }
                                                 <div className="zip-download">
                                                     <label className="zip-download_label">Download PDF</label>
-                                                    <a href="https://drive.google.com/uc?export=download&amp;id=<?php echo $pdf[1] ?>" className="btn btn-link zip-download_link"><i className="far fa-file-archive"></i>{value.data_title}.pdf</a>
+                                                        <a rel="noopener noreferrer" target="_blank" href={"https://drive.google.com/uc?export=download&id=" + value['data_link'].split("=")[1]} className="btn btn-link zip-download_link"><i className="far fa-file-archive"></i>{value.data_title}.pdf</a>
                                                 </div>
                                             </div>
                                         )
