@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import google from '../assets/images/google.svg';
 import facebook from '../assets/images/facebook.svg';
 import twitter from '../assets/images/twitter.svg';
+import { GoogleLogin } from 'react-google-login';
+import { TwitterLogin } from 'react-twitter-auth';
+// import {FacebookLogin} from 'react-facebook-login';
 
 class Login extends Component {
 
@@ -74,6 +76,29 @@ class Login extends Component {
         this.setState({ fields });
     }
 
+    responseGoogle = (response) => {
+        console.log(response);
+        if (response.profileObj.email){
+            axios.post('http://localhost:8080/sociallogin', {
+                email: response.profileObj.email, // This is the body part
+                username: response.profileObj.name, // This is the body part
+                type: 'google', // This is the body part
+            })
+            .then((value) => {
+                localStorage.setItem('userdata', JSON.stringify(value.data.data));
+                window.location = '/home';
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }else{
+            console.log("error");
+        }
+    }
+    responseFacebook = (response) => {
+        console.log(response);
+    }
+
     render() {
         return (
             <div id="login-content" className="modal-body login-modal_body">
@@ -83,15 +108,22 @@ class Login extends Component {
                         <span>To keep connected with us please login with your personal information by email address and password</span>
                     </div>
                     <div className="social-media_connect">
-                        <a href="home" className="social-media_child">
-                            <img src={google} className="img-fluid" alt="" />
-                        </a>
+                        <GoogleLogin
+                            clientId="338442871337-fh49fjaav2c8112tdtrsg8tnaohpktoc.apps.googleusercontent.com"
+                            buttonText="Login"
+                            onSuccess={this.responseGoogle}
+                            onFailure={this.responseGoogle}
+                            cookiePolicy={'https://localhost:3000'}
+                        />
                         <a href="home" className="social-media_child">
                             <img src={facebook} className="img-fluid" alt="" />
                         </a>
                         <a href="home" className="social-media_child">
                             <img src={twitter} className="img-fluid" alt="" />
                         </a>
+                        <TwitterLogin loginUrl="http://localhost:4000/api/v1/auth/twitter"
+                            onFailure={this.onFailed} onSuccess={this.onSuccess}
+                            requestTokenUrl="http://localhost:4000/api/v1/auth/twitter/reverse" />
                     </div>
                     <div className="custom-input-group form-group">
                         <div className="form-control custom-input-control">
