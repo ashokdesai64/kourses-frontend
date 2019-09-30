@@ -18,7 +18,7 @@ class All_course extends Component {
 
     componentDidMount() {
         this.setState({ isLoading: true });
-        axios.post('http://localhost:8080/lecture_single/',{
+        axios.post(Helper.api_call('lecture_single'),{
             course : this.props.match.params.course ,
             lesson : this.props.match.params.lesson ,
             lecture : this.props.match.params.lecture,
@@ -34,7 +34,7 @@ class All_course extends Component {
         e.preventDefault();
         const { history } = this.props;
         $.ajax({
-            url: 'http://localhost:8080/complete_courses/',
+            url: Helper.api_call('complete_courses'),
             type: 'POST',
             data: { 
                 'course': data.courseid, 

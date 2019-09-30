@@ -13,6 +13,14 @@ class  helper  {
             return false;
         }
     }
+
+    api_call(link){
+        if(!link){
+            return 'http://localhost:8080/';
+        }else{
+            return `http://localhost:8080/${link}`;
+        }
+    }
    
 }
 

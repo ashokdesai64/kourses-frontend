@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Helper from '../services/genral_helper';
 
 class All_course extends Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class All_course extends Component {
 
     componentDidMount() {
         this.setState({ isLoading: true });
-        axios.post('http://localhost:8080/get_author')
+        axios.post(Helper.api_call('get_author'))
             .then((value) => {
                 this.setState({ author: value.data.data });
                 this.setState({ isLoading: false });

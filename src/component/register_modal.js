@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import google from '../assets/images/google.svg';
 import facebook from '../assets/images/facebook.svg';
-import twitter from '../assets/images/twitter.svg';
+import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
+import Helper from '../services/genral_helper';
 
 class Register extends Component {
 
@@ -57,7 +58,7 @@ class Register extends Component {
     handleSubmit(e) {
         e.preventDefault();
         if (this.handleValidation()) {
-            axios.post('http://localhost:8080/create_user', {
+            axios.post(Helper.api_call('create_user'), {
                 username: this.state.field.name, // This is the body part
                 email: this.state.field.email, // This is the body part
                 password: this.state.field.password, // This is the body part
@@ -95,15 +96,23 @@ class Register extends Component {
                         <span>Please sign up to your personal account if you want to use all our premium products</span>
                     </div>
                     <div className="social-media_connect">
-                        <a href="home" className="social-media_child">
-                            <img src={google} className="img-fluid" alt="" />
-                        </a>
-                        <a href="home" className="social-media_child">
-                            <img src={facebook} className="img-fluid" alt="" />
-                        </a>
-                        <a href="home" className="social-media_child">
-                            <img src={twitter} className="img-fluid" alt="" />
-                        </a>
+                        <GoogleLogin
+                            clientId="338442871337-fh49fjaav2c8112tdtrsg8tnaohpktoc.apps.googleusercontent.com"
+                            onSuccess={this.responseGoogle}
+                            onFailure={this.responseGoogle}
+                            cookiePolicy={'https://localhost:3000'}
+                            className="social-media_child"
+                            buttonText=""
+                        ></GoogleLogin>
+                        <FacebookLogin
+                            appId="341974583323946"
+                            fields="name,email,picture"
+                            callback={this.responseFacebook}
+                            style={{ 'display': 'none' }}
+                            icon={<img src={facebook} className="img-fluid" alt="" />}
+                            cssClass="social-media_child"
+                            textButton=""
+                        />
                     </div>
                     <div className="custom-input-group form-group">
                         <div className="form-control custom-input-control">

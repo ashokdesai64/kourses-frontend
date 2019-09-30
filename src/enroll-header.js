@@ -18,7 +18,7 @@ class enroll extends Component {
     
     componentDidMount() {
         this.setState({ isLoading: true });
-        axios.post('http://localhost:8080/course_single',{
+        axios.post(Helper.api_call('course_single'),{
             course: this.props.match.params.course,
             userid: Helper.get_user('_id') 
         })
@@ -30,6 +30,9 @@ class enroll extends Component {
     
     
     render() {
+        if (!Helper.get_user() ){
+            window.location = '/courses/' + this.props.match.params.course;
+        }
         if (this.state.isLoading) {
             return <div className="loader-container">
                 <div className="progress-loader float shadow-loder">

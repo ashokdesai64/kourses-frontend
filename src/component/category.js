@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Helper from '../services/genral_helper';
 
 
 
@@ -15,7 +16,7 @@ class All_course extends Component {
 
      componentDidMount() {
         this.setState({ isLoading: true });
-         axios.post('http://localhost:8080/get_category')
+         axios.post(Helper.api_call('get_category'))
             .then((value) => {
                 this.setState({ category: value.data.data });
                 this.setState({ isLoading: false });

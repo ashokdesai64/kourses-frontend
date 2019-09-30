@@ -18,7 +18,7 @@ class All_course extends Component {
 
     componentDidMount() {
         this.setState({ isLoading: true });
-        axios.post('http://localhost:8080/course_detail')
+        axios.post(Helper.api_call('course_detail'))
             .then((value) => {
                 this.setState({ course: value.data.data });
                 this.setState({ isLoading: false });

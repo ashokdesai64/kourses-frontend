@@ -26,10 +26,10 @@ class All_course extends Component {
         let link = "";
         let post_data = "";
         if (Helper.get_user()){
-            link = "http://localhost:8080/complete_course_detail";
+            link = Helper.api_call('complete_course_detail');
             post_data = { id: Helper.get_user('_id')};
         }else{
-            link = "http://localhost:8080/course_detail";
+            link = Helper.api_call('course_detail');
             post_data = "";
         }
         axios.post(link, { post_data})

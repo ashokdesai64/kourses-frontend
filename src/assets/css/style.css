@@ -1578,15 +1578,25 @@ button:focus {
     padding-right: 80px;
 }
 .social-media_child {
-	padding: 15px;
+	padding: 15px!important;
 	background-color: #ffffff;
-	border-radius: 10px;
-	box-shadow: 0px 5px 15px rgba(0,0,0,0.09);
+	border-image: unset;
+    border-style: unset;
+    border-color: #fff;
+	border-radius: 10px!important;
+	box-shadow: 0px 5px 15px rgba(0,0,0,0.09)!important;
 	width: 60px;
 	height: 60px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+button.social-media_child div {
+	position: absolute;
+	padding: 0!important;
+}
+.social-media_child span{
+	padding: 0!important;
 }
 .social-media_child:hover {
 	box-shadow: none;

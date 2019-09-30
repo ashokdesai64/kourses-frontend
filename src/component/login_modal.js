@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import facebook from '../assets/images/facebook.svg';
-import twitter from '../assets/images/twitter.svg';
 import { GoogleLogin } from 'react-google-login';
-import { TwitterLogin } from 'react-twitter-auth';
-// import {FacebookLogin} from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login';
+import Helper from '../services/genral_helper';
 
 class Login extends Component {
 
@@ -48,7 +47,7 @@ class Login extends Component {
     handleSubmit(e) {
         e.preventDefault();
         if (this.handleValidation()) {
-            axios.post('http://localhost:8080/login',{
+            axios.post(Helper.api_call('login'),{
                     email: this.state.field.email, // This is the body part
                     password: this.state.field.password, // This is the body part
             })
@@ -79,7 +78,7 @@ class Login extends Component {
     responseGoogle = (response) => {
         console.log(response);
         if (response.profileObj.email){
-            axios.post('http://localhost:8080/sociallogin', {
+            axios.post(Helper.api_call('sociallogin'), {
                 email: response.profileObj.email, // This is the body part
                 username: response.profileObj.name, // This is the body part
                 type: 'google', // This is the body part
@@ -97,9 +96,29 @@ class Login extends Component {
     }
     responseFacebook = (response) => {
         console.log(response);
-    }
+        if (response.email) {
+            axios.post(Helper.api_call('sociallogin'), {
+                email:response.email, // This is the body part
+                username:response.name, // This is the body part
+                type: 'facebook', // This is the body part
+            })
+            .then((value) => {
+                    localStorage.setItem('userdata', JSON.stringify(value.data.data));
+                    window.location = '/home';
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            } else {
+                console.log("error");
+            }
+        }
 
-    render() {
+        responseTwitter = (response) => {
+            console.log(response);
+        }
+        
+        render() {
         return (
             <div id="login-content" className="modal-body login-modal_body">
                 <form className="login_mdl" id="login_mdl" onSubmit={this.handleSubmit.bind(this)} method="POST">
@@ -108,22 +127,23 @@ class Login extends Component {
                         <span>To keep connected with us please login with your personal information by email address and password</span>
                     </div>
                     <div className="social-media_connect">
-                        <GoogleLogin
-                            clientId="338442871337-fh49fjaav2c8112tdtrsg8tnaohpktoc.apps.googleusercontent.com"
-                            buttonText="Login"
-                            onSuccess={this.responseGoogle}
-                            onFailure={this.responseGoogle}
-                            cookiePolicy={'https://localhost:3000'}
-                        />
-                        <a href="home" className="social-media_child">
-                            <img src={facebook} className="img-fluid" alt="" />
-                        </a>
-                        <a href="home" className="social-media_child">
-                            <img src={twitter} className="img-fluid" alt="" />
-                        </a>
-                        <TwitterLogin loginUrl="http://localhost:4000/api/v1/auth/twitter"
-                            onFailure={this.onFailed} onSuccess={this.onSuccess}
-                            requestTokenUrl="http://localhost:4000/api/v1/auth/twitter/reverse" />
+                            <GoogleLogin
+                                clientId="338442871337-fh49fjaav2c8112tdtrsg8tnaohpktoc.apps.googleusercontent.com"
+                                onSuccess={this.responseGoogle}
+                                onFailure={this.responseGoogle}
+                                cookiePolicy={'https://localhost:3000'}
+                                className="social-media_child"
+                                buttonText=""
+                        ></GoogleLogin>
+                            <FacebookLogin
+                                appId="341974583323946"
+                                fields="name,email,picture"
+                                callback={this.responseFacebook}
+                                style={{'display':'none'}}
+                                icon={<img src={facebook} className="img-fluid" alt="" />}
+                                cssClass="social-media_child"
+                                textButton=""  
+                            />
                     </div>
                     <div className="custom-input-group form-group">
                         <div className="form-control custom-input-control">
