@@ -81,7 +81,6 @@ $(window).on('load', function () {
     var video = document.getElementById('my-video');
     if (video) {
         video.addEventListener('ended', function () {
-            alert();
             // $('#complete').click();
         });
     }

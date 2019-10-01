@@ -72,8 +72,9 @@
   },
   "scripts": {
     "start": "set HTTPS=true&&node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "build": "set HTTPS=true&&node scripts/build.js",
+    "test": "set HTTPS=true&&node scripts/test.js",
+    "postinstall": "sh scripts/link-certificate.sh"
   },
   "eslintConfig": {
     "extends": "react-app"

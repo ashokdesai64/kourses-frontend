@@ -127,7 +127,7 @@ class Login extends Component {
                         <span>To keep connected with us please login with your personal information by email address and password</span>
                     </div>
                     <div className="social-media_connect">
-                            <GoogleLogin
+                        <GoogleLogin
                                 clientId="338442871337-fh49fjaav2c8112tdtrsg8tnaohpktoc.apps.googleusercontent.com"
                                 onSuccess={this.responseGoogle}
                                 onFailure={this.responseGoogle}
