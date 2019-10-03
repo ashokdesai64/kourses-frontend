@@ -29,8 +29,8 @@ class single_lesson extends Component {
             <React.Fragment>
                 {
                     this.props.data.map((obj, key) =>
-                    <React.Fragment>
-                            <div key={obj.name} className="lecture-s_head">
+                        <React.Fragment key={obj.name + key}>
+                            <div className="lecture-s_head">
                                 <label>{obj.name}</label>
                             </div>
                             <ul className="list-unstyled lecture-s_list">

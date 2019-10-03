@@ -39,6 +39,7 @@
     "node-css": "^0.1.0",
     "node-js": "^1.0.0",
     "node-png": "^0.4.3",
+    "nodemailer": "^6.3.0",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.5.0",
     "popper.js": "^1.15.0",

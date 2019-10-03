@@ -51,31 +51,33 @@ class All_course extends Component {
         };
         if (!this.state.course) return null;
         return (
-            <section className="home-courses-sec">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12 col-sm-12 col-md-10 col-lg-6">
-                            <div className="section-title">
-                                <h2>Featured Courses</h2>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse dolores sapiente tenetur iure id iusto eaque.</p>
+            <React.Fragment>
+                <section className="home-courses-sec">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12 col-sm-12 col-md-10 col-lg-6">
+                                <div className="section-title">
+                                    <h2>Featured Courses</h2>
+                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse dolores sapiente tenetur iure id iusto eaque.</p>
+                                </div>
                             </div>
                         </div>
+                        <div className="popular-carousel">
+                            <OwlCarousel className="owl-theme" items={1} options={options}  responsive={options.responsive} >
+                            {
+                                this.state.course.map((obj, key) =>
+                                    <div className="item course-card mb-3" key={key}>
+                                        <Courseheader action_līnk={Helper.get_user() ? '/enroll/' + obj.course_slug + '' : '/courses/' + obj.course_slug + ''} lecture={obj.L_c} lesson={obj.l_c} image={obj.image} />
+                                        <Coursebody title={obj.title} subtitle={obj.subtitle} />
+                                        <Coursefooter title={true} username={obj.auhtorname} image={obj.auhtorimage} />
+                                    </div>
+                                )
+                            }
+                            </OwlCarousel>
+                        </div>
                     </div>
-                    <div className="popular-carousel">
-                        <OwlCarousel className="owl-theme" items={1} options={options}  responsive={options.responsive} >
-                        {
-                            this.state.course.map((obj, key) =>
-                                <div className="item course-card mb-3" key={key}>
-                                    <Courseheader action_līnk={Helper.get_user() ? '/enroll/' + obj.course_slug + '' : '/courses/' + obj.course_slug + ''} lecture={obj.L_c} lesson={obj.l_c} image={obj.image} />
-                                    <Coursebody title={obj.title} subtitle={obj.subtitle} />
-                                    <Coursefooter title={true} username={obj.auhtorname} image={obj.auhtorimage} />
-                                </div>
-                            )
-                        }
-                        </OwlCarousel>
-                    </div>
-                </div>
-            </section>
+                </section>
+            </React.Fragment>
         );
     }
 }

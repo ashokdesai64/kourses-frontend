@@ -6,26 +6,33 @@ import Helper from '../services/genral_helper';
 
 
 class All_course extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
             category: [],
-            isLoading: false,
         };
     }
 
-     componentDidMount() {
+    componentDidMount() {
+        this._isMounted = true;
         this.setState({ isLoading: true });
          axios.post(Helper.api_call('get_category'))
             .then((value) => {
-                this.setState({ category: value.data.data });
-                this.setState({ isLoading: false });
+                if (this._isMounted) {
+                    this.setState({ category: value.data.data });
+                }
             });
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
+
 
     render() {
-        if (this.state.isLoading) {
+        if (!this._isMounted) {
             return false;
         }
         return (
