@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import nodemailer from 'nodemailer';
 
 class Forget_password extends Component {
 
@@ -52,24 +51,6 @@ class Forget_password extends Component {
     }
 
     render() {
-        let transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
-            auth: {
-                type: 'OAuth2',
-                user: 'user@example.com',
-                accessToken: 'ya29.Xx_XX0xxxxx-xX0X0XxXXxXxXXXxX0x'
-            }
-        });
-        console.log(nodemailer);
-        transporter.sendMail({
-            from: "Fred Foo ✔ <foo@blurdybloop.com>", // sender address
-            to: "******@gmail.com", // list of receivers
-            subject: "Hello ✔", // Subject line
-            text: "Hello world ✔", // plaintext body
-            html: "<b>Hello world ✔</b>" // html body
-        }, console.error);
         return (
             <div id="forgot-content" className="modal-body login-modal_body d-none">
                 <form className="login-form" id="forget_email" method="POST">
