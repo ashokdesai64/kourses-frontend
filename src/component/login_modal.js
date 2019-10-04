@@ -76,7 +76,6 @@ class Login extends Component {
     }
 
     responseGoogle = (response) => {
-        console.log(response);
         if (response.profileObj.email){
             axios.post(Helper.api_call('sociallogin'), {
                 email: response.profileObj.email, // This is the body part
