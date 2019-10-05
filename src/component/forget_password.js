@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import Helper from '../services/genral_helper';
+import $ from 'jquery';
+import dfdf from '../services/nodemailer';
 
 class Forget_password extends Component {
 
@@ -6,38 +10,51 @@ class Forget_password extends Component {
         super(props);
 
         this.state = {
-            login: {}
+            field: { forget_email: ''},
+            errors: { forget_email: ''}
         }
+
     }
 
     handleValidation() {
-        let fields = this.state.login;
+        let fields = this.state.field;
         let errors = {};
         let formIsValid = true;
 
         //Email
-        if (!fields["login_email"]) {
+        if (!fields["forget_email"]) {
             formIsValid = false;
-            errors["login_email"] = "Cannot be empty";
-        }
-
-        if (typeof fields["login_email"] !== "undefined") {
-            let lastAtPos = fields["login_email"].lastIndexOf('@');
-            let lastDotPos = fields["login_email"].lastIndexOf('.');
-
-            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && fields["login_email"].indexOf('@@') === -1 && lastDotPos > 2 && (fields["email"].length - lastDotPos) > 2)) {
+            errors["forget_email"] = "please enter email";
+        }else
+        if (typeof fields["forget_email"] !== "undefined") {
+            let lastAtPos = fields["forget_email"].lastIndexOf('@');
+            let lastDotPos = fields["forget_email"].lastIndexOf('.');
+            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && fields["forget_email"].indexOf('@@') === -1 && lastDotPos > 2 && (fields["forget_email"].length - lastDotPos) > 2)) {
                 formIsValid = false;
-                errors["login_email"] = "Email is not valid";
+                errors["forget_email"] = "Email is not valid";
             }
         }
         this.setState({ errors: errors });
         return formIsValid;
     }
 
-    contactSubmit(e) {
+    handleSubmit(e) {
         e.preventDefault();
         if (this.handleValidation()) {
-            alert("Form submitted");
+            axios.post(Helper.api_call('check_user'), {
+                email: this.state.field.forget_email, // This is the body part
+            })
+                .then((value) => {
+                    if (value.data.status === "success") {
+                        $('#forgot-content').addClass('d-none');
+                        $('#check_otp').removeClass('d-none');
+                    } else {
+                        alert(value.data.message);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         } else {
             alert("Form has errors.")
         }
@@ -45,23 +62,24 @@ class Forget_password extends Component {
     }
 
     handleChange(field, e) {
-        let fields = this.state.login;
+        let fields = this.state.field;
         fields[field] = e.target.value;
         this.setState({ fields });
     }
-
+        
     render() {
         return (
             <div id="forgot-content" className="modal-body login-modal_body d-none">
-                <form className="login-form" id="forget_email" method="POST">
+                <form className="login-form" id="forget_email" onSubmit={this.handleSubmit.bind(this)} method="post">
                     <div className="sign-head border-0 mb-0">
                         <h3>Forgot Password</h3>
                     </div>
                     <div className="custom-input-group form-group">
                         <div className="form-control custom-input-control">
                             <div className="ci-type">
-                                <label className="float-label small-label">Email</label>
-                                <input type="text" name="forget_email" className="float-input dark-label clear-control" placeholder="" />
+                                <label className="float-label small-label" htmlFor='forget_email'>Email</label>
+                                <input ref="forget_email" onChange={this.handleChange.bind(this, "forget_email")} value={this.state.field["forget_email"]} type="text" name="forget_email" id="forget_email" className="float-input dark-label clear-control" placeholder="" />
+                                <label className="error">{this.state.errors["forget_email"]}</label>
                             </div>
                         </div>
                     </div>
