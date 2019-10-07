@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Helper from '../services/genral_helper';
 import $ from 'jquery';
-import dfdf from '../services/nodemailer';
 
 class Forget_password extends Component {
 
@@ -41,10 +40,14 @@ class Forget_password extends Component {
     handleSubmit(e) {
         e.preventDefault();
         if (this.handleValidation()) {
-            axios.post(Helper.api_call('check_user'), {
+            $(this).prop('disabled',true);
+            $('.forget_email').text('loading......');
+            axios.post(Helper.api_call('forget_password_fun'), {
                 email: this.state.field.forget_email, // This is the body part
             })
                 .then((value) => {
+                    $(this).prop('disabled', false);
+                    $('.forget_email').text('Submit');
                     if (value.data.status === "success") {
                         $('#forgot-content').addClass('d-none');
                         $('#check_otp').removeClass('d-none');
@@ -68,6 +71,7 @@ class Forget_password extends Component {
     }
         
     render() {
+        
         return (
             <div id="forgot-content" className="modal-body login-modal_body d-none">
                 <form className="login-form" id="forget_email" onSubmit={this.handleSubmit.bind(this)} method="post">

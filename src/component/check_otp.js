@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import Helper from '../services/genral_helper';
+import $ from 'jquery';
 
 class Check_otp extends Component {
 
@@ -6,38 +9,47 @@ class Check_otp extends Component {
         super(props);
 
         this.state = {
-            login: {}
+            field: { otp: '' },
+            errors: { otp: '' }
         }
+
     }
 
     handleValidation() {
-        let fields = this.state.login;
+        let fields = this.state.field;
         let errors = {};
         let formIsValid = true;
 
         //Email
-        if (!fields["login_email"]) {
+        if (!fields["otp"]) {
             formIsValid = false;
-            errors["login_email"] = "Cannot be empty";
-        }
-
-        if (typeof fields["login_email"] !== "undefined") {
-            let lastAtPos = fields["login_email"].lastIndexOf('@');
-            let lastDotPos = fields["login_email"].lastIndexOf('.');
-
-            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && fields["login_email"].indexOf('@@') === -1 && lastDotPos > 2 && (fields["email"].length - lastDotPos) > 2)) {
-                formIsValid = false;
-                errors["login_email"] = "Email is not valid";
-            }
+            errors["otp"] = "please enter otp";
         }
         this.setState({ errors: errors });
         return formIsValid;
     }
 
-    contactSubmit(e) {
+    handleSubmit(e) {
         e.preventDefault();
         if (this.handleValidation()) {
-            alert("Form submitted");
+            $(this).prop('disabled', true);
+            $('.check_otp').text('loading......');
+            axios.post(Helper.api_call('check_otp'), {
+                otp: this.state.field.otp, // This is the body part
+            })
+                .then((value) => {
+                    $(this).prop('disabled', false);
+                    $('.check_otp').text('Check OTP');
+                    if (value.data.status === "success") {
+                        $('#check_otp').addClass('d-none');
+                        $('#cng_password').removeClass('d-none');
+                    } else {
+                        alert(value.data.message);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         } else {
             alert("Form has errors.")
         }
@@ -45,7 +57,7 @@ class Check_otp extends Component {
     }
 
     handleChange(field, e) {
-        let fields = this.state.login;
+        let fields = this.state.field;
         fields[field] = e.target.value;
         this.setState({ fields });
     }
@@ -53,16 +65,16 @@ class Check_otp extends Component {
     render() {
         return (
             <div id="check_otp" className="modal-body login-modal_body d-none">
-                <form className="login-form" id="check_otp_form" method="POST">
+                <form className="login-form" id="otp_form" onSubmit={this.handleSubmit.bind(this)} method="post">
                     <div className="sign-head border-0 mb-0">
                         <h3>Enter OTP</h3>
                     </div>
                     <div className="custom-input-group form-group">
                         <div className="form-control custom-input-control">
                             <div className="ci-type">
-                                <label className="float-label small-label">OTP</label>
-                                <input type="text" name="otp" className="float-input dark-label clear-control" placeholder="" />
-                                <input type="hidden" name="user_email" id="user_email" />
+                                <label className="float-label small-label" htmlFor='otp'>OTP</label>
+                                <input ref="otp" onChange={this.handleChange.bind(this, "otp")} value={this.state.field["otp"]} type="text" name="otp" id="otp" className="float-input dark-label clear-control" placeholder="" />
+                                <label className="error">{this.state.errors["otp"]}</label>
                             </div>
                         </div>
                     </div>
