@@ -59,7 +59,7 @@ class single_course extends Component {
 
                         <div className="col-12 col-sm-12 col-md-12 col-lg-6">
                             <div className="images-card">
-                                <img src="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/2.jpg" alt="Title background" className="img-fluid" />
+                                <img src={Helper.img_url("2.jpg")} alt="Title background" className="img-fluid" />
                             </div>
                         </div>
                     </div>

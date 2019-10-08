@@ -48,7 +48,6 @@ class All_course extends Component {
         });
     }
 
-
     render() {
         $(document).ready(function () {
             $('.faloder').html('');
@@ -80,10 +79,10 @@ class All_course extends Component {
                     <nav className="dashboard-nav">
                         <div className="backTo-pages">
                             <Link to={"/enroll/" + detail.course_slug} className="btn btn-icon btn-back">
-                                <img alt="" src="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/left-arrow.svg" className="img-fluid" />
+                                <img alt="" src={Helper.img_url("left-arrow.svg")} className="img-fluid" />
                             </Link>
                             <Link to="/home" className="btn btn-icon btn-filter d-lg-none" id="open_filter">
-                                <img alt="" src="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/settings.svg" className="img-fluid" />
+                                <img alt="" src={Helper.img_url("settings.svg")} className="img-fluid" />
                             </Link>
                         </div>
                         <div className="faloder">
@@ -139,7 +138,7 @@ class All_course extends Component {
                             }
                             {
                                 detail.single_lecture.type && detail.single_lecture.type === "2" && (
-                                    <video id="my-video" className="video-js" controls autoPlay preload="auto" data-setup=''>
+                                    <video id="my-player" controlsList="nodownload" className="video-js" controls autoPlay preload="auto" data-setup='{}' onEnded={((e) => this.handleClick(e, data))} >
                                         <source src={"https://drive.google.com/uc?export=download&id=" + detail.single_lecture.lecture_data} type='video/mp4'/>
                                     </video>
                                 )

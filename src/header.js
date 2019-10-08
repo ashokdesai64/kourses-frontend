@@ -52,7 +52,7 @@ handleClick(e) {
                                         <li className="nav-item">
                                             <div className="dropdown profile-menu">
                                                 <Link className="profile-dropodwn" to="/home" role="button" id="filter-dropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <img src="https://kourses-codeigniter.qseksolutions.com/assets/back-end/user_profile/no-user.jpg" width="40px" height="40px" 
+                                                        <img src={Helper.img_backend_auth_profile("no-user.jpg")} width="40px" height="40px" 
                                                         style={{ 'borderRadius': '50px' }} alt="" />
                                                 </Link>
                                                 <div className="dropdown-menu" aria-labelledby="filter-dropdown1">

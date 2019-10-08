@@ -1,5 +1,14 @@
 import $ from 'jquery';
 
+// $(document).bind("contextmenu", function (e) {
+//     e.preventDefault();
+// });
+// $(document).keydown(function (e) {
+//     if (e.which === 123) {
+//         return false;
+//     }
+// });
+
 $(document).on('keyup', '.float-input', function () {
     if ($(this).val()) {
         $(this).parents('.ci-type').addClass('float-control');
@@ -53,36 +62,51 @@ $(document).on('click', '#openSignIn', function () {
 });
 
 $(document).on('keyup','#search_bar',function () {
-    var check = ""
+    var check = 0;
     $('#nocoursetitle').html('');
     var input, filter, div_full, subdiv,i, txtValue;
     input = document.getElementById('search_bar');
-    filter = input.value.toUpperCase();
+    filter = $.trim(input.value).toUpperCase();
     div_full = document.getElementById("course_full");
     subdiv = div_full.getElementsByTagName('h2');
     for (i = 0; i < subdiv.length; i++) {
         txtValue = subdiv[i].textContent || subdiv[i].innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            check = "";
             $(subdiv[i]).parent().parent().parent().css('display', 'block');
         } else {
             $(subdiv[i]).parent().parent().parent().css('display', 'none');
-            check = i;
+        }
+        if ($(subdiv[i]).parent().parent().parent().is(":visible")){
+            check++;
         }
     }
-    if (check) {
+    if (check === 0) {
         $('#nocoursetitle').html('<h2 class="text-center w-100">Courses Not Found</h2>');
     }
 });
 
 
-
-$(window).on('load', function () {
+$(function () {
+    // Handler for .ready() called.
     var video = document.getElementById('my-video');
     if (video) {
         video.addEventListener('ended', function () {
             // $('#complete').click();
+            alert();
         });
     }
 });
+
+
+
+// $(window).on('load', function () {
+// $(window).bind("load", function () { 
+//     var video = document.getElementById('my-video');
+//     if (video) {
+//         video.addEventListener('ended', function () {
+//             // $('#complete').click();
+//             alert();
+//         });
+//     }
+// });
 

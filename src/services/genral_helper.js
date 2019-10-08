@@ -22,6 +22,30 @@ class  helper  {
         }
     }
 
+    img_url(link) {
+        if (!link) {
+            return 'https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/';
+        } else {
+            return `https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/${link}`;
+        }
+    }
+    
+    img_backend_url(link) {
+        if (!link) {
+            return 'https://kourses-codeigniter.qseksolutions.com/assets/back-end/upload_data/';
+        } else {
+            return `https://kourses-codeigniter.qseksolutions.com/assets/back-end/upload_data/${link}`;
+        }
+    }
+
+    img_backend_auth_profile(link) {
+        if (!link) {
+            return 'https://kourses-codeigniter.qseksolutions.com/assets/back-end/user_profile/';
+        } else {
+            return `https://kourses-codeigniter.qseksolutions.com/assets/back-end/user_profile/${link}`;
+        }
+    }
+
 }
 
 

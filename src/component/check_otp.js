@@ -32,13 +32,14 @@ class Check_otp extends Component {
     handleSubmit(e) {
         e.preventDefault();
         if (this.handleValidation()) {
-            $(this).prop('disabled', true);
+            $('.check_otp').prop('disabled', true);
             $('.check_otp').text('loading......');
             axios.post(Helper.api_call('check_otp'), {
                 otp: this.state.field.otp, // This is the body part
+                email: $('#for_hidden_email').val(),
             })
                 .then((value) => {
-                    $(this).prop('disabled', false);
+                    $('.check_otp').prop('disabled', false);
                     $('.check_otp').text('Check OTP');
                     if (value.data.status === "success") {
                         $('#check_otp').addClass('d-none');
@@ -66,6 +67,7 @@ class Check_otp extends Component {
         return (
             <div id="check_otp" className="modal-body login-modal_body d-none">
                 <form className="login-form" id="otp_form" onSubmit={this.handleSubmit.bind(this)} method="post">
+                    <input type="hidden" id="for_hidden_email"></input>
                     <div className="sign-head border-0 mb-0">
                         <h3>Enter OTP</h3>
                     </div>

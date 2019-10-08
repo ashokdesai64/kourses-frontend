@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../src/header';
 import Footer from '../src/footer';
+import genral_helper from './services/genral_helper';
 
 class learn_path extends Component {
 
@@ -39,7 +40,7 @@ class learn_path extends Component {
                         </div>
                     </div>
                     <div className="bg-shape left-shape">
-                        <img alt="" src="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/left-shape.svg" className="img-fluid" />
+                        <img alt="" src={genral_helper.img_url("left-shape.svg")} className="img-fluid" />
                     </div>]
                 </section>
             <Footer/>

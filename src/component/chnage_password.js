@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import Helper from '../services/genral_helper';
+import $ from 'jquery';
 
 class Chnage_password extends Component {
 
@@ -6,38 +9,57 @@ class Chnage_password extends Component {
         super(props);
 
         this.state = {
-            login: {}
+            field: { forget_password: '', re_password: '' },
+            errors: { forget_password: '', re_password:'' }
         }
+
     }
 
     handleValidation() {
-        let fields = this.state.login;
+        let fields = this.state.field;
         let errors = {};
         let formIsValid = true;
 
         //Email
-        if (!fields["login_email"]) {
+        if (!fields["forget_password"]) {
             formIsValid = false;
-            errors["login_email"] = "Cannot be empty";
-        }
-
-        if (typeof fields["login_email"] !== "undefined") {
-            let lastAtPos = fields["login_email"].lastIndexOf('@');
-            let lastDotPos = fields["login_email"].lastIndexOf('.');
-
-            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && fields["login_email"].indexOf('@@') === -1 && lastDotPos > 2 && (fields["email"].length - lastDotPos) > 2)) {
-                formIsValid = false;
-                errors["login_email"] = "Email is not valid";
-            }
+            errors["forget_password"] = "please enter Password";
+        } else if (!fields['re_password']){
+            formIsValid = false;
+            errors["re_password"] = "please enter Re-Password";
+        } else if (fields['forget_password'] !==  fields['re_password']) {
+            formIsValid = false;
+            errors["re_password"] = "Password not matched";
         }
         this.setState({ errors: errors });
         return formIsValid;
     }
 
-    contactSubmit(e) {
+    handleSubmit(e) {
         e.preventDefault();
         if (this.handleValidation()) {
-            alert("Form submitted");
+            if (!$('#for_hidden_email').val()){
+                alert('something wrong.');
+                return;
+            }
+            $('.cng_pass').prop('disabled', true);
+            $('.cng_pass').text('loading......');
+            axios.post(Helper.api_call('password_change'), {
+                email: $('#for_hidden_email').val(), // This is the body part
+                password: this.state.field.forget_password, 
+            })
+                .then((value) => {
+                    $('.cng_pass').prop('disabled', false);
+                    $('.cng_pass').text('Chnage Password');
+                    if (value.data.status === "success") {
+                        window.location = '/home';
+                    } else {
+                        alert(value.data.message);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         } else {
             alert("Form has errors.")
         }
@@ -45,7 +67,7 @@ class Chnage_password extends Component {
     }
 
     handleChange(field, e) {
-        let fields = this.state.login;
+        let fields = this.state.field;
         fields[field] = e.target.value;
         this.setState({ fields });
     }
@@ -53,24 +75,25 @@ class Chnage_password extends Component {
     render() {
         return (
             <div id="cng_password" className="modal-body login-modal_body d-none">
-                <form className="login-form" id="cng_password_form" method="POST">
+                <form className="login-form" id="cng_password_form" onSubmit={this.handleSubmit.bind(this)} method="post">
                     <div className="sign-head border-0 mb-0">
                         <h3>Change Password</h3>
                     </div>
                     <div className="custom-input-group form-group">
                         <div className="form-control custom-input-control">
                             <div className="ci-type">
-                                <label className="float-label small-label">Enter Password</label>
-                                <input type="text" name="forget_password" id="forget_password" className="float-input dark-label clear-control" placeholder="" />
+                                <label className="float-label small-label" htmlFor='forget_password'>Enter Password</label>
+                                <input ref="forget_password" onChange={this.handleChange.bind(this, "forget_password")} value={this.state.field["forget_password"]} type="text" name="forget_password" id="forget_password" className="float-input dark-label clear-control" placeholder="" />
+                                <label className="error">{this.state.errors["forget_password"]}</label>
                             </div>
                         </div>
                     </div>
                     <div className="custom-input-group form-group">
                         <div className="form-control custom-input-control">
                             <div className="ci-type">
-                                <label className="float-label small-label">Enter Re-Password</label>
-                                <input type="text" name="re_password" className="float-input dark-label clear-control" placeholder="" />
-                                <input type="hidden" name="email_hidden" id="email_hidden" />
+                                <label className="float-label small-label" htmlFor='re_password'>Enter Password</label>
+                                <input ref="re_password" onChange={this.handleChange.bind(this, "re_password")} value={this.state.field["re_password"]} type="text" name="re_password" id="re_password" className="float-input dark-label clear-control" placeholder="" />
+                                <label className="error">{this.state.errors["re_password"]}</label>
                             </div>
                         </div>
                     </div>

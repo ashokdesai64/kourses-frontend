@@ -7,7 +7,7 @@ class Course_footer extends Component {
         return (
             <div className="course-card-footer">
                 <div className="lecturer-avtar">
-                    <img src={'https://kourses-codeigniter.qseksolutions.com/assets/back-end/user_profile/' + this.props.image} alt="lecturer-img" className="img-thumbnail" />
+                    <img src={Helper.img_backend_auth_profile(this.props.image)} alt="lecturer-img" className="img-thumbnail" />
                     <h5>{this.props.username}</h5>
                 </div>
                 {!Helper.get_user() &&

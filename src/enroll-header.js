@@ -33,49 +33,61 @@ class enroll extends Component {
         if (!Helper.get_user() ){
             window.location = '/courses/' + this.props.match.params.course;
         }
-        if (this.state.isLoading) {
-            return <div className="loader-container">
-                <div className="progress-loader float shadow-loder">
-                    <div className="progress__item"></div>
-                </div>
-            </div>;
-        }
+        // if (this.state.isLoading) {
+        //     return <div className="loader-container">
+        //         <div className="progress-loader float shadow-loder">
+        //             <div className="progress__item"></div>
+        //         </div>
+        //     </div>;
+        // }
         var detail = this.state.course[0];
-        if (!detail) return null;
+        // if (!detail) return null;
         return (
             <React.Fragment>
                 <Header />
                 <div className="container-wrapper">
-                    <aside className="left-sidebar scrollbar-inner">
-                        <div className="lecture-sidebar_card mt-4">
-                            <div className="l-side_head">
-                                <img src={'https://kourses-codeigniter.qseksolutions.com/assets/back-end/upload_data/'+detail.image} alt="" className="img-fluid" />
-                            </div>
-                            <div className="lecture-sidebar_card-body">
-                                    <h2>{detail.title}</h2>
-                                <div className="progress">
-                                    <div className="progress-bar" role="progressbar" style={{ "width": "" + detail.count + "%" }} aria-valuenow={detail.count} aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                    <span className="progress-pers">{detail.count}%</span>
-                                </div>
+                {
+                    detail && !this.state.isLoading ? (
+                        <React.Fragment>
+                                <aside className="left-sidebar scrollbar-inner">
+                                    <div className="lecture-sidebar_card mt-4">
+                                        <div className="l-side_head">
+                                            <img src={Helper.img_backend_url(detail.image)} alt="" className="img-fluid" />
+                                        </div>
+                                        <div className="lecture-sidebar_card-body">
+                                                <h2>{detail.title}</h2>
+                                            <div className="progress">
+                                                <div className="progress-bar" role="progressbar" style={{ "width": "" + detail.count + "%" }} aria-valuenow={detail.count} aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                                <span className="progress-pers">{detail.count}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul className="list-unstyled l-sidebar_menu">
+                                        <li className="menu-item">
+                                            <Link to={"/enroll/" + this.props.match.params.course} className={"menu-link" + (this.props.link_action === "enroll" ? " active" : "")}><i className="far fa-list-alt"></i> className Curriculum</Link>
+                                        </li>
+                                        <li className="menu-item">
+                                            <Link to={"/instructor/" + this.props.match.params.course} className={"menu-link" + (this.props.link_action !== "enroll" ? " active" : "")}><i className="far fa-user"></i> Your Instructor</Link>
+                                        </li>
+                                    </ul>
+                                </aside>
+                            {
+                                this.props.link_action === "instructor" ?(
+                                    <Instructor author={detail.author}/>
+                                    ):(
+                                        <Enroll course_slug={detail.course_slug} image={detail.image} data={detail.lesson}/>
+                                    )
+                            }
+                            </React.Fragment>
+                            ):(
+                                <div className="loader-container">
+                            <div className="progress-loader float shadow-loder">
+                                <div className="progress__item"></div>
                             </div>
                         </div>
-                        <ul className="list-unstyled l-sidebar_menu">
-                            <li className="menu-item">
-                                <Link to={"/enroll/" + this.props.match.params.course} className={"menu-link" + (this.props.link_action === "enroll" ? " active" : "")}><i className="far fa-list-alt"></i> className Curriculum</Link>
-                            </li>
-                            <li className="menu-item">
-                                <Link to={"/instructor/" + this.props.match.params.course} className={"menu-link" + (this.props.link_action !== "enroll" ? " active" : "")}><i className="far fa-user"></i> Your Instructor</Link>
-                            </li>
-                        </ul>
-                    </aside>
-                    {
-                        this.props.link_action === "instructor" ?(
-                            <Instructor author={detail.author}/>
-                            ):(
-                            <Enroll course_slug={detail.course_slug} image={detail.image} data={detail.lesson}/>
-                        )
-                    }
+                    )
+                }
                 </div>
                 <Footer />
             </React.Fragment>

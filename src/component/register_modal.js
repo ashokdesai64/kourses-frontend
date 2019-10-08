@@ -65,11 +65,10 @@ class Register extends Component {
                 re_password: this.state.field.re_password, // This is the body part
             })
                 .then((value) => {
-                    if (value.data.message) {
-                        alert(value.data.message);
-                    } else {
-                        localStorage.setItem('userdata', JSON.stringify(value.data.data));
+                    if (value.data.status === "success") {
                         window.location = '/home';
+                    } else {
+                        alert(value.data.message);
                     }
                 })
                 .catch(err => {

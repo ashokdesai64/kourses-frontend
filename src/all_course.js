@@ -63,13 +63,6 @@ class All_course extends Component {
     }
     
     render() {
-        if (!this._isMounted) {
-            return <div className="loader-container">
-                <div className="progress-loader float shadow-loder">
-                    <div className="progress__item"></div>
-                </div>
-            </div>;
-        }
         return (
             <React.Fragment key="1" >
                 <Header/>
@@ -80,7 +73,7 @@ class All_course extends Component {
                                     <div className="search-box">
                                         <input type="text" placeholder="Search" name="search" id="search_bar" className="search-control" />
                                         <span className="search-icon">
-                                            <img src="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/search.svg" alt="" className="img-fluid" />
+                                        <img src={Helper.img_url("search.svg")} alt="" className="img-fluid" />
                                         </span>
                                     </div>
                                 </div>
@@ -93,6 +86,7 @@ class All_course extends Component {
                             </div>
                             <div className="row" id="course_full">
                                 {
+                                 this._isMounted ?(
                                     this.state.course.map((obj,key) =>
                                         <div key={key+'1'} className="col-12 col-sm-12 col-md-6 col-lg-4" id="search-filter">
                                             <Link to={Helper.get_user() ? '/enroll/' + obj.course_slug + '' : '/courses/' + obj.course_slug + ''} className="course-card enroll-course_card">
@@ -114,6 +108,13 @@ class All_course extends Component {
                                             </Link>
                                         </div>
                                     )
+                                 ):(
+                                    <div className="loader-container">
+                                        <div className="progress-loader float shadow-loder">
+                                            <div className="progress__item"></div>
+                                        </div>
+                                    </div>
+                                 )
                                 }
                             </div>
                         </div>

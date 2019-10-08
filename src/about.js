@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../src/header';
 import Footer from '../src/footer';
+import genral_helper from './services/genral_helper';
 
 class about extends Component {
 
@@ -20,7 +21,7 @@ class about extends Component {
 
                                     <div className="about-card">
                                         <div className="about-card_avatar">
-                                            <img src="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/avatar2.png" alt="about photos" className="img-fluid img-thumbnail" />
+                                            <img src={genral_helper.img_url("avatar2.png")} alt="about photos" className="img-fluid img-thumbnail" />
                                         </div>
                                             <div className="about-detaile">
                                                 <p>Hi! My name is  Kourses. I am a passionate and pragmatic software engineer with 18 years of professional experience,

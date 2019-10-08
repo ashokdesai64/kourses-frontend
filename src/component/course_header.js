@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import genral_helper from '../services/genral_helper';
 
 class Course_header extends Component {
    
@@ -8,7 +9,7 @@ class Course_header extends Component {
         return (
             <React.Fragment>
                 <Link to={this.props.action_līnk} className="course-card_header">
-                    <img src={'https://kourses-codeigniter.qseksolutions.com/assets/back-end/upload_data/' + this.props.image} className="img-fluid" alt="" />
+                    <img src={genral_helper.img_backend_url(this.props.image)} className="img-fluid" alt="" />
                 </Link>
                 <div className="c-h-overlay">
                     <span className="video-total">{this.props.lesson} Lesson</span>

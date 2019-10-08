@@ -5,6 +5,7 @@ import Footer from '../src/footer';
 import Apicall from './services/get_course_all';
 import landing_png from '../src/assets/images/landing.png';
 import OwlCarousel from 'react-owl-carousel';
+import helper from './services/genral_helper';
 
 class home extends Component {
 
@@ -62,7 +63,7 @@ class home extends Component {
                 <OwlCarousel className="owl-theme testimonial-carousel " items={1}   >
                   <div className="testimonial-item item">
                     <div className="testi-avatar">
-                      <img src="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/avatar-testi.jpeg" className="img-fluid img-thumbnail" alt=""/>
+                      <img src={helper.img_url("avatar-testi.jpeg")}  className="img-fluid img-thumbnail" alt=""/>
                     </div>
                     <div className="testimonial-content">
                       <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus illum alias laborum nam, fuga molestiae quidem consectetur architecto dignissimos,
@@ -72,7 +73,7 @@ class home extends Component {
                   </div>
                   <div className="testimonial-item item">
                     <div className="testi-avatar">
-                      <img src="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/james.jpg" className="img-fluid img-thumbnail" alt=""/>
+                      <img src={helper.img_url("james.jpg")}  className="img-fluid img-thumbnail" alt=""/>
                     </div>
                     <div className="testimonial-content">
                       <p>Similique et facilis doloremque eum dolorem veritatis repellendus sit, corporis cupiditate
@@ -82,7 +83,7 @@ class home extends Component {
                   </div>
                   <div className="testimonial-item item">
                     <div className="testi-avatar">
-                      <img src="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/2824_20180831123921.jpg" className="img-fluid img-thumbnail" alt=""/>
+                      <img src={helper.img_url('2824_20180831123921.jpg')} className="img-fluid img-thumbnail" alt=""/>
                     </div>
                     <div className="testimonial-content">
                       <p>Illum provident tempora autem asperiores, Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -100,7 +101,7 @@ class home extends Component {
               viewBox="0 0 600 400" style={{ enableBackground: 'new 0 0 600 400' }} xmlSpace="preserve">
                     <defs>
               <pattern id="news-item-2" patternUnits="userSpaceOnUse" width="100%" height="100%">
-                  <image xlinkHref="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/testimonial-bg.jpg" />
+                      <image xlinkHref={helper.img_url("testimonial-bg.jpg")}  />
                         </pattern>
             </defs>
               <path className="st0" d="M71,350L0,0c0,0,0,0.6,0,0l0,0h600l0,0v400l0,0H137C105,400,79,386,71,350z" style={{ fill: 'url(#news-item-2)' }} />

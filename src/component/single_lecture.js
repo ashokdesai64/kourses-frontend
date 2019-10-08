@@ -40,7 +40,7 @@ class lecture extends Component {
                                         )
                                     }
                                 </div>
-                                <img src={'https://kourses-codeigniter.qseksolutions.com/assets/back-end/upload_data/' + this.props.image} className="img-fluid" alt="video images" />
+                                <img src={Helper.img_backend_url(this.props.image)} className="img-fluid" alt="video images" />
                                 <div className="lecture_name">
                                     <h6>{value.title}</h6>
                                 </div>
