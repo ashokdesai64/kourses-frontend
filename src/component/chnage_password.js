@@ -87,7 +87,7 @@ class Chnage_password extends Component {
                         <div className="form-control custom-input-control">
                             <div className="ci-type">
                                 <label className="float-label small-label" htmlFor='forget_password'>Enter Password</label>
-                                <input ref="forget_password" onChange={this.handleChange.bind(this, "forget_password")} value={this.state.field["forget_password"]} type="text" name="forget_password" id="forget_password" className="float-input dark-label clear-control" placeholder="" />
+                                <input type="password" ref="forget_password" onChange={this.handleChange.bind(this, "forget_password")} value={this.state.field["forget_password"]}  name="forget_password" id="forget_password" className="float-input dark-label clear-control" placeholder="" />
                                 <label className="error">{this.state.errors["forget_password"]}</label>
                             </div>
                         </div>
@@ -96,7 +96,7 @@ class Chnage_password extends Component {
                         <div className="form-control custom-input-control">
                             <div className="ci-type">
                                 <label className="float-label small-label" htmlFor='re_password'>Enter Password</label>
-                                <input ref="re_password" onChange={this.handleChange.bind(this, "re_password")} value={this.state.field["re_password"]} type="text" name="re_password" id="re_password" className="float-input dark-label clear-control" placeholder="" />
+                                <input type="password" ref="re_password" onChange={this.handleChange.bind(this, "re_password")} value={this.state.field["re_password"]} name="re_password" id="re_password" className="float-input dark-label clear-control" placeholder="" />
                                 <label className="error">{this.state.errors["re_password"]}</label>
                             </div>
                         </div>
