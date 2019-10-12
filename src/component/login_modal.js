@@ -4,6 +4,7 @@ import facebook from '../assets/images/facebook.svg';
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import Helper from '../services/genral_helper';
+import $ from 'jquery';
 
 class Login extends Component {
 
@@ -45,25 +46,34 @@ class Login extends Component {
     }
 
     handleSubmit(e) {
+        const { history } = this.props;
         e.preventDefault();
         if (this.handleValidation()) {
+            $('.login_btn').html('<i class="fas fa-spinner fa-spin"></i>');
+            $('.login_btn').prop('disabled', true);
             axios.post(Helper.api_call('login'),{
                     email: this.state.field.email, // This is the body part
                     password: this.state.field.password, // This is the body part
             })
                 .then((value) => {
-                    if(value.data.message){
-                        alert(value.data.message);
-                    }else{
+                    $('.login_btn').html('Login');
+                    $('.login_btn').prop('disabled', false);
+                    if(value.data.status === "success"){
+                        $('button.close').click();
+                        Helper.notify(value.data.status, value.data.message);
                         localStorage.setItem('userdata', JSON.stringify(value.data.data));
-                        window.location ='/home';
+                        setTimeout(() => {
+                             history.push(this.props.location.pathname);
+                        }, 1000);
+                    }else{
+                        Helper.notify(value.data.status, value.data.message);
                     }
                 })
                 .catch (err => {
-                    console.log(err);
+                    $('.login_btn').html('Login');
+                    $('.login_btn').prop('disabled', false);
+                    Helper.notify('error', err);
                 });
-        } else {
-            alert("Form has errors.")
         }
 
     }
@@ -76,6 +86,7 @@ class Login extends Component {
     }
 
     responseGoogle = (response) => {
+        const { history } = this.props;
         if (response.profileObj.email){
             axios.post(Helper.api_call('sociallogin'), {
                 email: response.profileObj.email, // This is the body part
@@ -83,17 +94,27 @@ class Login extends Component {
                 type: 'google', // This is the body part
             })
             .then((value) => {
-                localStorage.setItem('userdata', JSON.stringify(value.data.data));
-                window.location = '/home';
+                if (value.data.status === "success") {
+                    $('button.close').click();
+                    Helper.notify(value.data.status, value.data.message);
+                    localStorage.setItem('userdata', JSON.stringify(value.data.data));
+                    setTimeout(() => {
+                        history.push(this.props.location.pathname);
+                    }, 1000);
+                } else {
+                    Helper.notify(value.data.status, value.data.message);
+                }
             })
             .catch(err => {
-                console.log(err);
+                Helper.notify('error', err);
             });
         }else{
-            console.log("error");
+            $('button.close').click();
+            Helper.notify('error','something wrong please try again.');
         }
     }
     responseFacebook = (response) => {
+        const { history } = this.props;
         console.log(response);
         if (response.email) {
             axios.post(Helper.api_call('sociallogin'), {
@@ -102,20 +123,25 @@ class Login extends Component {
                 type: 'facebook', // This is the body part
             })
             .then((value) => {
+                if (value.data.status === "success") {
+                    $('button.close').click();
+                    Helper.notify(value.data.status, value.data.message);
                     localStorage.setItem('userdata', JSON.stringify(value.data.data));
-                    window.location = '/home';
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-            } else {
-                console.log("error");
-            }
+                    setTimeout(() => {
+                         history.push(this.props.location.pathname);
+                    }, 1000);
+                } else {
+                    Helper.notify(value.data.status, value.data.message);
+                }
+            })
+            .catch(err => {
+                Helper.notify('error', err);
+            });
+        } else {
+            $('button.close').click();
+            Helper.notify('error','something wrong please try again.');
         }
-
-        responseTwitter = (response) => {
-            console.log(response);
-        }
+    }
         
         render() {
         return (

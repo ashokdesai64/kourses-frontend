@@ -1920,6 +1920,184 @@ footer {
     -ms-transform: rotate(-45deg) translate(7px , -7px);
     transform: rotate(-45deg) translate(7px , -7px);
 }
+.zip-download {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.zip-download_label {
+    display: block;
+    margin-bottom: 0;
+}
+.zip-download_link {
+    font-size: 14px;
+    color: #ef2d56;
+}
+.zip-iframe {
+	position: relative;
+}
+.zip-iframe_label {
+	position: relative;
+	z-index: 1;
+	margin-bottom: -5px;
+}
+.zip-iframe_card {
+	width: 100%;
+	border: none;
+	position: relative;
+	z-index: 5;
+}
+/*responsive-end*/
+label.error {
+    color: red;
+    margin-top: 13px;
+    font-weight: 500;
+}
+
+
+.loader-container {
+  box-sizing: unset;
+  padding: 169px 20px;
+  width: 100%;
+  height: 100%;
+}
+.loader-container:before {
+	box-sizing: unset;
+  content: "";
+  width: 100%;
+  height: 50%;
+  z-index: -1;
+  transition: top 1.2s linear 3.1s;
+}
+.loader-container:after {
+	box-sizing: unset;
+  content: "";
+  left: 0;
+  width: 100%;
+  height: 50%;
+  z-index: -1;
+  transition: bottom 1.2s linear 3.1s;
+}
+.progress-loader {
+	box-sizing: unset;
+  transform-origin: center;
+  position: relative;
+}
+.progress-loader .progress__item {
+    box-sizing: unset;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    border: 2px solid #2d1c7b;
+    border-radius: 50%;
+    margin: auto;
+}
+.progress-loader.float.shadow-loder:before {
+	box-sizing: unset;
+  border-top-width: 2px;
+  margin-top: -41px;
+  height: 50px;
+}
+.progress-loader.shadow-loder:before {
+    box-sizing: unset;
+    content: "";
+    margin: -43px 0 0 12px;
+    width: 45px;
+    height: 45px;
+    border-top: solid 10px #2d1c7b;
+    border-right: solid 10px #2d1c7b;
+    border-top-right-radius: 100%;
+    z-index: -1;
+    transform-origin: left bottom;
+    animation: spin 3s linear infinite;
+    position: absolute;
+    left: 50%;
+    margin: auto;
+    top: 42px;
+}
+.display_blur{
+	filter: blur(2px);
+	pointer-events: none;
+	position: relative;
+}
+
+.display_blur:before {
+	content: "\f110";
+    font-family: 'Font Awesome\ 5 Free';
+    font-weight: 900;
+    color: #fb2754;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    font-size: 100px;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    animation: fa-spin 2s infinite linear;
+}
+.custom-alert{
+	position: fixed;
+    top: 0;
+    right: 0;
+    margin: 15px;
+	min-width: 316px;
+	z-index: 999;
+	display: flex;
+    align-items: center;
+}
+.alert-success:before {
+    content: "\f058";
+    font-family: 'Font Awesome\ 5 Free';
+    font-weight: 900;
+    margin-right: 15px;
+    font-size: 25px;
+}
+.alert-danger:before {
+    content: "\f410";
+    font-family: 'Font Awesome\ 5 Free';
+    font-weight: 900;
+    margin-right: 15px;
+    font-size: 25px;
+}
+.error_box.custom-alert{
+	flex-direction: column;
+}
+.modal {
+	pointer-events: none;
+}
+@keyframes done {
+  10% {
+    transform: scale(1.1);
+  }
+  20% {
+    transform: scale(0.9);
+  }
+  30% {
+    transform: scale(1.07);
+  }
+  40% {
+    transform: scale(0.93);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+  60% {
+    transform: scale(0.97);
+  }
+  80% {
+    transform: scale(1.01);
+  }
+  90% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 @media (min-width: 1200px) {
 	.container {
@@ -2037,6 +2215,9 @@ footer {
 }
 
 @media (max-width: 767.98px) { 
+	.loader-container {
+		padding: 220px 20px;
+	}
 	.navbar {
     	padding: 10px 0px;
 	}
@@ -2256,180 +2437,4 @@ footer {
 		margin-right: 0px;
 	}
 }
-.zip-download {
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-.zip-download_label {
-    display: block;
-    margin-bottom: 0;
-}
-.zip-download_link {
-    font-size: 14px;
-    color: #ef2d56;
-}
-.zip-iframe {
-	position: relative;
-}
-.zip-iframe_label {
-	position: relative;
-	z-index: 1;
-	margin-bottom: -5px;
-}
-.zip-iframe_card {
-	width: 100%;
-	border: none;
-	position: relative;
-	z-index: 5;
-}
-/*responsive-end*/
-label.error {
-    color: red;
-    margin-top: 13px;
-    font-weight: 500;
-}
 
-
-.loader-container {
-  box-sizing: unset;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.loader-container:before {
-	box-sizing: unset;
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50%;
-  z-index: -1;
-  transition: top 1.2s linear 3.1s;
-}
-.loader-container:after {
-	box-sizing: unset;
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 50%;
-  z-index: -1;
-  transition: bottom 1.2s linear 3.1s;
-}
-.progress-loader {
-	box-sizing: unset;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  transform-origin: center;
-}
-.progress-loader .progress__item {
-	box-sizing: unset;
-  text-align: center;
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-  border: 2px solid #2d1c7b;
-  border-radius: 50%;
-}
-.progress-loader .progress__item:before {
-	box-sizing: unset;
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  margin-top: -3px;
-  margin-left: 0px;
-  width: 45px;
-  height: 45px;
-  border-top: solid 10px #2d1c7b;
-  border-right: solid 10px #2d1c7b;
-  border-top-right-radius: 100%;
-  transform-origin: left bottom;
-  animation: spin 3s linear infinite;
-}
-.progress-loader.float .progress__item:before {
-	box-sizing: unset;
-  border-top-width: 2px;
-  margin-top: 0px;
-  height: 50px;
-}
-.progress-loader.float.shadow-loder:before {
-	box-sizing: unset;
-  border-top-width: 2px;
-  margin-top: -41px;
-  height: 50px;
-}
-.progress-loader.shadow-loder:before {
-	box-sizing: unset;
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -43px 0 0 12px;
-  width: 45px;
-  height: 45px;
-  border-top: solid 10px #474358;
-  border-right: solid 10px #474358;
-  border-top-right-radius: 100%;
-  z-index: -1;
-  transform-origin: left bottom;
-  animation: spin 3s linear infinite;
-}
-.progress-loader.shadow-loder:after {
-	box-sizing: unset;
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100px;
-  height: 100px;
-  color: #474358;
-  text-align: center;
-  line-height: 100px;
-  border: 2px solid #474358;
-  border-radius: 50%;
-  margin: -40px 0 0 -40px;
-  z-index: -1;
-  transform-origin: center;
-}
-
-@keyframes done {
-  10% {
-    transform: scale(1.1);
-  }
-  20% {
-    transform: scale(0.9);
-  }
-  30% {
-    transform: scale(1.07);
-  }
-  40% {
-    transform: scale(0.93);
-  }
-  50% {
-    transform: scale(1.04);
-  }
-  60% {
-    transform: scale(0.97);
-  }
-  80% {
-    transform: scale(1.01);
-  }
-  90% {
-    transform: scale(0.99);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
-}

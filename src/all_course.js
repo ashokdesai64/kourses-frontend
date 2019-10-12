@@ -36,24 +36,31 @@ class All_course extends Component {
         axios.post(link, { post_data})
         .then((value) => {
             let data = value.data.data;
-            if (this.state.filter.filter){
-                if (this.state.filter.filter === "category"){
-                        if (this._isMounted) {
-                            this.setState({
-                                course: data.filter(m => m.categoryid === this.state.filter.id) 
-                            });
+            if (value.data.status === "success") {
+                if (this.state.filter.filter){
+                    if (this.state.filter.filter === "category"){
+                            if (this._isMounted) {
+                                this.setState({
+                                    course: data.filter(m => m.categoryid === this.state.filter.id) 
+                                });
+                            }
+                        }else{
+                            if (this._isMounted) {
+                                this.setState({
+                                    course: data.filter(m => m.authorid === this.state.filter.id)
+                                });
+                            }
                         }
                     }else{
-                        if (this._isMounted) {
-                            this.setState({
-                                course: data.filter(m => m.authorid === this.state.filter.id)
-                            });
-                        }
+                        this.setState({ course: data });
                     }
-                }else{
-                    this.setState({ course: data });
+                    this._isMounted = false;
+                }else {
+                    Helper.notify(value.data.status, value.data.message);
                 }
-            this._isMounted = false;
+            })
+            .catch(err => {
+                Helper.notify('error', err);
             });
     }
 
@@ -63,9 +70,12 @@ class All_course extends Component {
     }
     
     render() {
+        if (this.state.course){
+            this._isMounted  = true;
+        }
         return (
             <React.Fragment key="1" >
-                <Header/>
+                <Header {...this.props}/>
                     <section className="courses-sec">
                         <div className="container">
                             <div className="course-filter_row">
@@ -86,7 +96,7 @@ class All_course extends Component {
                             </div>
                             <div className="row" id="course_full">
                                 {
-                                 this._isMounted ?(
+                                this._isMounted && this.state.course ?(
                                     this.state.course.map((obj,key) =>
                                         <div key={key+'1'} className="col-12 col-sm-12 col-md-6 col-lg-4" id="search-filter">
                                             <Link to={Helper.get_user() ? '/enroll/' + obj.course_slug + '' : '/courses/' + obj.course_slug + ''} className="course-card enroll-course_card">
@@ -119,7 +129,7 @@ class All_course extends Component {
                             </div>
                         </div>
                     </section>
-                <Footer/>
+                <Footer {...this.props}/>
             </React.Fragment>
             );
         }

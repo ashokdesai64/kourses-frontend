@@ -9,7 +9,7 @@ class about extends Component {
     render() {
         return (
             <React.Fragment>
-                <Header />
+                <Header {...this.props}/>
                 <section className="content-page_sec">
                     <div className="container">
                         <div className="row">
@@ -57,7 +57,7 @@ class about extends Component {
                             <img src="assets/front-end/images/left-shape.svg" className="img-fluid" alt="" />
                         </div>
                     </section>
-                <Footer />
+                <Footer {...this.props} />
             </React.Fragment>
         );
     }

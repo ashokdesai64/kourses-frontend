@@ -36,11 +36,11 @@ class footer_call extends Component {
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                             <Loginmodal/>
-                             <Registermodal/>
-                             <Forgetmodal/>
-                             <Checkmodal/>
-                             <Changemodal/>
+                             <Loginmodal {...this.props}/>
+                             <Registermodal {...this.props}/>
+                             <Forgetmodal {...this.props}/>
+                             <Checkmodal {...this.props}/>
+                             <Changemodal {...this.props}/>
                             </div>
                     </div>
                 </div>

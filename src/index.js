@@ -15,6 +15,7 @@ import './index.css';
 import home from './home';
 import learn_path from './learn-path';
 import about from './about';
+import contact from './contact';
 import root from './root';
 import Allcourse from './all_course';
 import course from './course';
@@ -26,11 +27,13 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <BrowserRouter>
+        <React.Fragment><div className="error_box custom-alert"></div></React.Fragment>
         <Switch>
             <Route exact path="/" component={root}></Route>
             <Route path="/home" component={home}></Route>
             <Route path="/learn-path" component={learn_path}></Route>
             <Route path="/about" component={about}></Route>
+            <Route path="/contact-us" component={contact}></Route>
             <Route path="/all_course/:filter?/:id?/" render={(props) => (<Allcourse key={props.match.params.filter+props.match.params.id} {...props} />)
             } ></Route>
             <Route path="/courses/:course/" component={course}></Route>

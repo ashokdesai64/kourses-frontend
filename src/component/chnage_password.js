@@ -29,41 +29,45 @@ class Chnage_password extends Component {
             errors["re_password"] = "please enter Re-Password";
         } else if (fields['forget_password'] !==  fields['re_password']) {
             formIsValid = false;
-            errors["re_password"] = "Password not matched";
+            errors["re_password"] = "password not matched";
         }
         this.setState({ errors: errors });
         return formIsValid;
     }
 
     handleSubmit(e) {
+        const { history } = this.props;
         e.preventDefault();
         if (this.handleValidation()) {
             if (!$('#for_hidden_email').val()){
-                alert('something wrong.');
+                Helper.notify('error', 'something wrong please after sometime.');
                 return;
             }
             $('.cng_pass').prop('disabled', true);
-            $('.cng_pass').text('loading......');
+            $('.cng_pass').html('<i class="fas fa-spinner fa-spin"></i>');
             axios.post(Helper.api_call('password_change'), {
                 email: $('#for_hidden_email').val(), // This is the body part
                 password: this.state.field.forget_password, 
             })
                 .then((value) => {
+                    $('button.close').click();
                     $('.cng_pass').prop('disabled', false);
-                    $('.cng_pass').text('Chnage Password');
+                    $('.cng_pass').html('Chnage Password');
                     if (value.data.status === "success") {
-                        window.location = '/home';
+                        Helper.notify(value.data.status, value.data.message);
+                        setTimeout(function(){
+                            history.push(history.location.pathname);
+                        },3000);
                     } else {
-                        alert(value.data.message);
+                        $('.cng_pass').prop('disabled', false);
+                        $('.cng_pass').html('Chnage Password');
+                        Helper.notify(value.data.status, value.data.message);
                     }
                 })
                 .catch(err => {
-                    console.log(err);
+                    Helper.notify('error', err);
                 });
-        } else {
-            alert("Form has errors.")
         }
-
     }
 
     handleChange(field, e) {

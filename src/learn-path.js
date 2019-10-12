@@ -10,7 +10,7 @@ class learn_path extends Component {
     render() {
         return (
             <React.Fragment>
-            <Header/>
+            <Header {...this.props}/>
                 <section className="content-page_sec">
                     <div className="container">
                         <div className="row">
@@ -43,7 +43,7 @@ class learn_path extends Component {
                         <img alt="" src={genral_helper.img_url("left-shape.svg")} className="img-fluid" />
                     </div>]
                 </section>
-            <Footer/>
+            <Footer {...this.props}/>
                 </React.Fragment>
         );
     }

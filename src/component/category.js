@@ -20,9 +20,16 @@ class All_course extends Component {
          axios.post(Helper.api_call('get_category'))
             .then((value) => {
                 if (this._isMounted) {
-                    this.setState({ category: value.data.data });
+                    if (value.data.status === "success") {
+                        this.setState({ category: value.data.data });
+                    } else {
+                        Helper.notify(value.data.status, value.data.message);
+                    }
                 }
-            });
+            })
+            .catch(err => {
+                Helper.notify('error', err);
+             });
     }
 
     componentWillUnmount() {

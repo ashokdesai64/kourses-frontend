@@ -4,6 +4,7 @@ import facebook from '../assets/images/facebook.svg';
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import Helper from '../services/genral_helper';
+import $ from 'jquery';
 
 class Register extends Component {
 
@@ -58,6 +59,9 @@ class Register extends Component {
     handleSubmit(e) {
         e.preventDefault();
         if (this.handleValidation()) {
+            const { history } = this.props;
+            $('.signup_btn').html('<i class="fas fa-spinner fa-spin"></i>');
+            $('.signup_btn').prop('disabled', true);
             axios.post(Helper.api_call('create_user'), {
                 username: this.state.field.name, // This is the body part
                 email: this.state.field.email, // This is the body part
@@ -65,17 +69,23 @@ class Register extends Component {
                 re_password: this.state.field.re_password, // This is the body part
             })
                 .then((value) => {
+                    $('.signup_btn').html('Sign Up');
+                    $('.signup_btn').prop('disabled', false);
                     if (value.data.status === "success") {
-                        window.location = '/home';
+                        $('button.close').click();
+                        Helper.notify(value.data.status, value.data.message);
+                        setTimeout(() => {
+                            history.push(this.props.location.pathname);
+                        }, 1000);
                     } else {
-                        alert(value.data.message);
+                        Helper.notify(value.data.status, value.data.message);
                     }
                 })
                 .catch(err => {
-                    console.log(err);
+                    $('.signup_btn').html('Sign Up');
+                    $('.signup_btn').prop('disabled', false);
+                    Helper.notify('error', err);
                 });
-        } else {
-            alert("Form has errors.")
         }
 
     }
@@ -84,6 +94,63 @@ class Register extends Component {
         let fields = this.state.field;
         fields[field] = e.target.value;
         this.setState({ fields });
+    }
+
+    responseGoogle = (response) => {
+        const { history } = this.props;
+        if (response.profileObj.email) {
+            axios.post(Helper.api_call('sociallogin'), {
+                email: response.profileObj.email, // This is the body part
+                username: response.profileObj.name, // This is the body part
+                type: 'google', // This is the body part
+            })
+                .then((value) => {
+                    if (value.data.status === "success") {
+                        $('button.close').click();
+                        Helper.notify(value.data.status, value.data.message);
+                        localStorage.setItem('userdata', JSON.stringify(value.data.data));
+                        setTimeout(() => {
+                            history.push(this.props.location.pathname);
+                        }, 1000);
+                    } else {
+                        Helper.notify(value.data.status, value.data.message);
+                    }
+                })
+                .catch(err => {
+                    Helper.notify('error', err);
+                });
+        } else {
+            $('button.close').click();
+            Helper.notify('error', 'something wrong please try again.');
+        }
+    }
+    responseFacebook = (response) => {
+        const { history } = this.props;
+        if (response.email) {
+            axios.post(Helper.api_call('sociallogin'), {
+                email: response.email, // This is the body part
+                username: response.name, // This is the body part
+                type: 'facebook', // This is the body part
+            })
+                .then((value) => {
+                    if (value.data.status === "success") {
+                        $('button.close').click();
+                        Helper.notify(value.data.status, value.data.message);
+                        localStorage.setItem('userdata', JSON.stringify(value.data.data));
+                        setTimeout(() => {
+                            history.push(this.props.location.pathname);
+                        }, 1000);
+                    } else {
+                        Helper.notify(value.data.status, value.data.message);
+                    }
+                })
+                .catch(err => {
+                    Helper.notify('error', err);
+                });
+        } else {
+            $('button.close').click();
+            Helper.notify('error', 'something wrong please try again.');
+        }
     }
 
     render() {

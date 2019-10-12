@@ -1,5 +1,17 @@
+import $ from 'jquery';
 class  helper  {
 
+    notify(status,msg){
+        var rand_no = Math.floor(Math.random() * 90 + 10);
+        if(status === "success"){
+            $('.error_box').prepend('<div class="alert alert-success" id="notify'+rand_no+'">'+msg+'</div>').show();
+        }else{
+            $('.error_box').prepend('<div class="alert alert-danger" id="notify'+rand_no+'">'+msg+'</div>').show();
+        }
+        $("#notify"+rand_no+"").fadeTo(500, 400).slideUp(400, function () {
+            $("#notify"+rand_no+"").slideUp(400);
+        });
+    }
 
     get_user(value=""){
         if (localStorage.getItem("userdata")){

@@ -10,6 +10,7 @@ class All_course extends Component {
         this.state = {
             author: [],
         };
+        
     }
 
     componentDidMount() {
@@ -18,8 +19,15 @@ class All_course extends Component {
         axios.post(Helper.api_call('get_author'))
             .then((value) => {
                 if (this._isMounted) {
-                    this.setState({ author: value.data.data });
+                    if (value.data.status === "success") {
+                        this.setState({ author: value.data.data });
+                    } else {
+                        Helper.notify(value.data.status, value.data.message);
+                    }
                 }
+            })
+            .catch (err => {
+                Helper.notify('error', err);
             });
     }
    

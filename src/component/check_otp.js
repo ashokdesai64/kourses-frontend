@@ -32,29 +32,29 @@ class Check_otp extends Component {
     handleSubmit(e) {
         e.preventDefault();
         if (this.handleValidation()) {
-            $('.check_otp').prop('disabled', true);
-            $('.check_otp').text('loading......');
+            $('.check_otp').html('<i class="fas fa-spinner fa-spin"></i>');
+            $('.check_otp').prop('diabled',true);
             axios.post(Helper.api_call('check_otp'), {
                 otp: this.state.field.otp, // This is the body part
                 email: $('#for_hidden_email').val(),
             })
                 .then((value) => {
                     $('.check_otp').prop('disabled', false);
-                    $('.check_otp').text('Check OTP');
+                    $('.check_otp').html('Check OTP');
                     if (value.data.status === "success") {
                         $('#check_otp').addClass('d-none');
                         $('#cng_password').removeClass('d-none');
+                        Helper.notify(value.data.status, value.data.message);
                     } else {
-                        alert(value.data.message);
+                        Helper.notify(value.data.status, value.data.message);
                     }
                 })
                 .catch(err => {
-                    console.log(err);
+                    $('.check_otp').prop('disabled', false);
+                    $('.check_otp').html('Check OTP');
+                    Helper.notify('error', err);
                 });
-        } else {
-            alert("Form has errors.")
         }
-
     }
 
     handleChange(field, e) {

@@ -12,7 +12,7 @@ class home extends Component {
   render() {
     return (
       <React.Fragment>
-        <Header />
+        <Header {...this.props}/>
         <section className="landing_sec">
           <div className="container">
             <div className="row">
@@ -109,7 +109,7 @@ class home extends Component {
 
             </div>
         </section>
-        <Footer />
+        <Footer {...this.props} />
       </React.Fragment>
     );
   }

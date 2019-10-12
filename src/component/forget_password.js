@@ -41,26 +41,26 @@ class Forget_password extends Component {
         e.preventDefault();
         if (this.handleValidation()) {
             $('.forget_email_btn').prop('disabled',true);
-            $('.forget_email_btn').text('loading......');
+            $('.forget_email_btn').html('<i class="fas fa-spinner fa-spin"></i>');
             axios.post(Helper.api_call('forget_password_fun'), {
                 email: this.state.field.forget_email, // This is the body part
             })
-                .then((value) => {
-                    $('.forget_email_btn').prop('disabled', false);
-                    $('.forget_email_btn').text('Submit');
-                    if (value.data.status === "success") {
-                        $('#for_hidden_email').val(this.state.field.forget_email);
-                        $('#forgot-content').addClass('d-none');
-                        $('#check_otp').removeClass('d-none');
-                    } else {
-                        alert(value.data.message);
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        } else {
-            alert("Form has errors.")
+            .then((value) => {
+                $('.forget_email_btn').prop('disabled', false);
+                $('.forget_email_btn').html('Submit');
+                if (value.data.status === "success") {
+                    $('#for_hidden_email').val(this.state.field.forget_email);
+                    $('#forgot-content').addClass('d-none');
+                    $('#check_otp').removeClass('d-none');
+                } else {
+                    Helper.notify(value.data.status, value.data.message);
+                }
+            })
+            .catch(err => {
+                $('.forget_email_btn').prop('disabled', false);
+                $('.forget_email_btn').html('Submit');
+                Helper.notify('error', err);
+            });
         }
 
     }

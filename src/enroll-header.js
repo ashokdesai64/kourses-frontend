@@ -23,8 +23,15 @@ class enroll extends Component {
             userid: Helper.get_user('_id') 
         })
         .then((value) => {
-            this.setState({ course: value.data.data });
-            this.setState({ isLoading: false });
+            if (value.data.status === "success") {
+                this.setState({ course: value.data.data });
+                this.setState({ isLoading: false });
+            } else {
+                Helper.notify(value.data.status, value.data.message);
+            }
+        })
+        .catch (err => {
+            Helper.notify('error', err);
         });
     }
     
@@ -33,18 +40,10 @@ class enroll extends Component {
         if (!Helper.get_user() ){
             window.location = '/courses/' + this.props.match.params.course;
         }
-        // if (this.state.isLoading) {
-        //     return <div className="loader-container">
-        //         <div className="progress-loader float shadow-loder">
-        //             <div className="progress__item"></div>
-        //         </div>
-        //     </div>;
-        // }
         var detail = this.state.course[0];
-        // if (!detail) return null;
         return (
             <React.Fragment>
-                <Header />
+                <Header {...this.props}/>
                 <div className="container-wrapper">
                 {
                     detail && !this.state.isLoading ? (
@@ -89,7 +88,7 @@ class enroll extends Component {
                     )
                 }
                 </div>
-                <Footer />
+                <Footer {...this.props}/>
             </React.Fragment>
         );
     }

@@ -85,28 +85,13 @@ $(document).on('keyup','#search_bar',function () {
     }
 });
 
-
-$(function () {
-    // Handler for .ready() called.
-    var video = document.getElementById('my-video');
-    if (video) {
-        video.addEventListener('ended', function () {
-            // $('#complete').click();
-            alert();
-        });
-    }
+$(document).on('click', 'button.close',function () {
+    setTimeout(() => {
+        $("input[type=text], textarea").val("");
+        $('#login-content').removeClass('d-none');
+        $('#create-content').addClass('d-none');
+        $('#forgot-content').addClass('d-none');
+        $('#check_otp').addClass('d-none');
+        $('#cng_password').addClass('d-none');
+    }, 1000);
 });
-
-
-
-// $(window).on('load', function () {
-// $(window).bind("load", function () { 
-//     var video = document.getElementById('my-video');
-//     if (video) {
-//         video.addEventListener('ended', function () {
-//             // $('#complete').click();
-//             alert();
-//         });
-//     }
-// });
-
