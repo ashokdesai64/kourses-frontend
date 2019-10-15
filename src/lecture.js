@@ -6,7 +6,7 @@ import Helper from './services/genral_helper';
 import $ from 'jquery';
 
 
-class All_course extends Component {
+class Lecture extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,30 +25,32 @@ class All_course extends Component {
     }
 
     componentWillMount() {
-        this.setState({ isLoading: true });
-        axios.post(Helper.api_call('lecture_single'),{
-            course : this.props.match.params.course ,
-            lesson : this.props.match.params.lesson ,
-            lecture : this.props.match.params.lecture,
-            userid:  Helper.get_user('_id') 
-        })
-            .then((value) => {
-                if (value.data.status === "success") {
-                    this.setState({ course: value.data.data });
-                    this.setState({ isLoading: false });
-                } else {
-                    $('.alert-danger').text(value.data.message).show();
+        if (Helper.get_user()) {
+            this.setState({ isLoading: true });
+            axios.post(Helper.api_call('lecture_single'),{
+                course : this.props.match.params.course ,
+                lesson : this.props.match.params.lesson ,
+                lecture : this.props.match.params.lecture,
+                userid:  Helper.get_user('_id') 
+            })
+                .then((value) => {
+                    if (value.data.status === "success") {
+                        this.setState({ course: value.data.data });
+                        this.setState({ isLoading: false });
+                    } else {
+                        $('.alert-danger').text(value.data.message).show();
+                        $(".alert-danger").fadeTo(2000, 500).slideUp(500, function () {
+                            $(".alert-danger").slideUp(500);
+                        });
+                    }
+                })
+                .catch(err => {
+                    $('.alert-danger').text(err).show();
                     $(".alert-danger").fadeTo(2000, 500).slideUp(500, function () {
                         $(".alert-danger").slideUp(500);
                     });
-                }
-            })
-            .catch(err => {
-                $('.alert-danger').text(err).show();
-                $(".alert-danger").fadeTo(2000, 500).slideUp(500, function () {
-                    $(".alert-danger").slideUp(500);
                 });
-            });
+        }
     }
 
     handleClick(e, data) {
@@ -74,6 +76,10 @@ class All_course extends Component {
     }
 
     render() {
+        const { history } = this.props;
+        if (!Helper.get_user()) {
+            history.push('/home');
+        }
         var detail = "";
         var display_blur = false;
         if (!this.state.course[0]){
@@ -227,4 +233,4 @@ class All_course extends Component {
     }
 }
 
-export default All_course;
+export default Lecture;

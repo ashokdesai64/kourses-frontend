@@ -17,30 +17,37 @@ class enroll extends Component {
     }
     
     componentDidMount() {
-        this.setState({ isLoading: true });
-        axios.post(Helper.api_call('course_single'),{
-            course: this.props.match.params.course,
-            userid: Helper.get_user('_id') 
-        })
-        .then((value) => {
-            if (value.data.status === "success") {
-                this.setState({ course: value.data.data });
-                this.setState({ isLoading: false });
-            } else {
-                Helper.notify(value.data.status, value.data.message);
-            }
-        })
-        .catch (err => {
-            Helper.notify('error', err);
-        });
+        if (Helper.get_user()) {
+            this.setState({ isLoading: true });
+            axios.post(Helper.api_call('course_single'),{
+                course: this.props.match.params.course,
+                userid: Helper.get_user('_id') 
+            })
+            .then((value) => {
+                if (value.data.status === "success") {
+                    this.setState({ course: value.data.data });
+                    this.setState({ isLoading: false });
+                } else {
+                    Helper.notify(value.data.status, value.data.message);
+                }
+            })
+            .catch (err => {
+                Helper.notify('error', err);
+            });
+        }
     }
     
     
     render() {
-        if (!Helper.get_user() ){
-            window.location = '/courses/' + this.props.match.params.course;
+        const { history } = this.props;
+        if (this.state.course[0]) {
+            var detail = this.state.course[0];
         }
-        var detail = this.state.course[0];
+        if (!Helper.get_user() && this.state.course[0]){
+            history.push('/courses/' + this.props.match.params.course);
+        }else{
+            history.push('/home');
+        }
         return (
             <React.Fragment>
                 <Header {...this.props}/>

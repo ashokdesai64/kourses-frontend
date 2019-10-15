@@ -39,8 +39,9 @@ ReactDOM.render(
             <Route path="/courses/:course/" component={course}></Route>
             <Route path="/enroll/:course/" component={(props) => (<Enroll link_action="enroll" {...props}  />)} ></Route>
             <Route path="/instructor/:course/" component={(props) => (<Enroll link_action="instructor" {...props}  />)} ></Route>
-            <Route path="/course/:course/lesson/:lesson/lecture/:lecture/" render={(props) => (<Lecture key={props.match.params.lesson + props.match.params.lecture} {...props} />)
+            <Route exact path="/course/:course/lesson/:lesson/lecture/:lecture/" render={(props) => (<Lecture key={props.match.params.lesson + props.match.params.lecture} {...props} />)
             } ></Route>
+            <Route path="*" component={home} />
         </Switch>
     </BrowserRouter>
     , document.getElementById('root'));

@@ -427,6 +427,9 @@ button:focus {
 	color: #7861ee;
 	text-decoration: none;
 }
+.dropdown-menu{
+	cursor: pointer;
+}
 .filter-dropdown .dropdown-menu {
 	right: 0;
     left: unset !important;

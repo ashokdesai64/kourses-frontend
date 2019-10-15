@@ -70,7 +70,7 @@ class All_course extends Component {
     }
     
     render() {
-        if (this.state.course){
+        if (this.state.course[0]){
             this._isMounted  = true;
         }
         return (

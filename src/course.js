@@ -37,8 +37,14 @@ class single_course extends Component {
 
 
     render() {
+        const { history } = this.props;
         if (this.state.course[0]){
             var detail = this.state.course[0];
+        }
+        if (Helper.get_user() && this.state.course[0]){
+            history.push('/enroll/' + detail.course_slug);
+        }else{
+            history.push('/home');
         }
         var i = 0;
         return (

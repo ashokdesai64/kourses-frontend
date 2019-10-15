@@ -5,7 +5,7 @@ class Root extends Component {
     render() {
         return (
             <div className="App">
-                <Home/>
+                <Home {...this.props}/>
             </div>
         );
     }

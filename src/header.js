@@ -15,7 +15,7 @@ handleClick(e) {
     e.preventDefault();
     const { history } = this.props;
     localStorage.removeItem("userdata");
-    history.push('home');
+    history.push('/home');
 }
 
 
