@@ -43,10 +43,8 @@ class enroll extends Component {
         if (this.state.course[0]) {
             var detail = this.state.course[0];
         }
-        if (!Helper.get_user() && this.state.course[0]){
+        if (!Helper.get_user()){
             history.push('/courses/' + this.props.match.params.course);
-        }else{
-            history.push('/home');
         }
         return (
             <React.Fragment>

@@ -30,15 +30,15 @@ ReactDOM.render(
         <React.Fragment><div className="error_box custom-alert"></div></React.Fragment>
         <Switch>
             <Route exact path="/" component={root}></Route>
-            <Route path="/home" component={home}></Route>
-            <Route path="/learn-path" component={learn_path}></Route>
-            <Route path="/about" component={about}></Route>
-            <Route path="/contact-us" component={contact}></Route>
-            <Route path="/all_course/:filter?/:id?/" render={(props) => (<Allcourse key={props.match.params.filter+props.match.params.id} {...props} />)
+            <Route exact path="/home" component={home}></Route>
+            <Route exact path="/learn-path" component={learn_path}></Route>
+            <Route exact path="/about" component={about}></Route>
+            <Route exact path="/contact-us" component={contact}></Route>
+            <Route exact path="/all_course/:filter?/:id?/" render={(props) => (<Allcourse key={props.match.params.filter+props.match.params.id} {...props} />)
             } ></Route>
-            <Route path="/courses/:course/" component={course}></Route>
-            <Route path="/enroll/:course/" component={(props) => (<Enroll link_action="enroll" {...props}  />)} ></Route>
-            <Route path="/instructor/:course/" component={(props) => (<Enroll link_action="instructor" {...props}  />)} ></Route>
+            <Route exact path="/courses/:course/" component={course}></Route>
+            <Route exact path="/enroll/:course/" component={(props) => (<Enroll link_action="enroll" {...props}  />)} ></Route>
+            <Route exact path="/instructor/:course/" component={(props) => (<Enroll link_action="instructor" {...props}  />)} ></Route>
             <Route exact path="/course/:course/lesson/:lesson/lecture/:lecture/" render={(props) => (<Lecture key={props.match.params.lesson + props.match.params.lecture} {...props} />)
             } ></Route>
             <Route path="*" component={home} />

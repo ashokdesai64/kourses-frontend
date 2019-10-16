@@ -53,13 +53,6 @@ $(document).on('click', '#openSignUp', function () {
     $('#login-content').addClass('d-none');
     $('#create-content').removeClass('d-none');
 });
-$(document).on('click', '#openSignIn', function () {
-    $('#sign-modal').modal();
-    $('#check_otp').addClass('d-none');
-    $('#create-content').addClass('d-none');
-    $('#forgot-content').addClass('d-none');
-    $('#login-content').removeClass('d-none');
-});
 
 $(document).on('keyup','#search_bar',function () {
     var check = 0;
@@ -86,12 +79,10 @@ $(document).on('keyup','#search_bar',function () {
 });
 
 $(document).on('click', 'button.close',function () {
-    setTimeout(() => {
         $("input[type=text], textarea").val("");
         $('#login-content').removeClass('d-none');
         $('#create-content').addClass('d-none');
         $('#forgot-content').addClass('d-none');
         $('#check_otp').addClass('d-none');
         $('#cng_password').addClass('d-none');
-    }, 1000);
 });
