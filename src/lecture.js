@@ -104,7 +104,7 @@ class Lecture extends Component {
                 courseid: detail.single_lecture.courseid,
                 lessonid: detail.single_lecture.lessonid,
                 lectureid: detail.single_lecture._id,
-                link: detail.next, 
+                link: !detail.next ? detail.pre : detail.next,  
                 userid: Helper.get_user('_id'),
             };
         }
@@ -155,8 +155,14 @@ class Lecture extends Component {
                             </aside>
                             <section className="enroll-curriculum-section ">
                                 <div className="lecture-change_control">
-                                    <Link to={detail.pre} style={{ width: !detail.next && '100%', display: !detail.pre && 'none' }} className="btn btn-shape btn-shape-primary"><img alt="" src="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/left-arrow.svg" className="img-fluid long-arrow arrow-left" /> Previous</Link>
-                                    <Link to={detail.next} onClick={((e) => this.handleClick(e, data))} style={{ width: !detail.pre && '100%', display: !detail.next && 'none' }}  id="complete" data-id={Helper.get_user('_id')} className="complete_course_click btn btn-shape btn-shape_flip btn-shape-warning complete_lecture">Complete and Next <img alt="" src="https://kourses-codeigniter.qseksolutions.com/assets/front-end/images/left-arrow.svg" className="img-fluid long-arrow arrow-right" /></Link>
+                                    {
+                                        !detail.next ?(
+                                                <Link to={detail.pre} onClick={((e) => this.handleClick(e, data))} data-id={Helper.get_user('_id')} style={{ width: '100%'}} className="btn btn-shape btn-shape-primary"><img alt="" src={Helper.img_url('images/left-arrow.svg')} className="img-fluid long-arrow arrow-left" /> Complete And Previous</Link>
+                                        ):(
+                                                <Link to = {detail.pre} style={{ width: !detail.next && '100%', display: !detail.pre && 'none' }} className="btn btn-shape btn-shape-primary "><img alt="" src={Helper.img_url('images/left-arrow.svg')} className="img-fluid long-arrow arrow-left" /> Previous</Link>
+                                        )
+                                    }
+                                    <Link to={detail.next} onClick={((e) => this.handleClick(e, data))} style={{ width: !detail.pre && '100%', display: !detail.next && 'none' }}  id="complete" data-id={Helper.get_user('_id')} className="complete_course_click btn btn-shape btn-shape_flip btn-shape-warning complete_lecture">Complete and Next <img alt="" src={Helper.img_url('images/left-arrow.svg')} className="img-fluid long-arrow arrow-right" /></Link>
                                 </div>
                                 
                                 <input type="hidden" value={detail.single_lecture.courseid} id="course_id"></input>

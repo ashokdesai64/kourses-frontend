@@ -43,8 +43,6 @@ class single_course extends Component {
         }
         if (Helper.get_user() && this.state.course[0]){
             history.push('/enroll/' + detail.course_slug);
-        }else{
-            history.push('/home');
         }
         var i = 0;
         return (
@@ -62,7 +60,7 @@ class single_course extends Component {
                                                     <h2>{detail.title}</h2>
                                                     <p>{detail.subtitle}</p>
                                                     {Helper.get_user() ? (
-                                                            <a href="enroll" className="btn btn-shape btn-shape-primary"><i className="fas fa-shopping-cart"></i> Enroll in Course</a>
+                                                        <a href="enroll" className="btn btn-shape btn-shape-primary"><i className="fas fa-shopping-cart"></i> Enroll in Course</a>
                                                     ):(
                                                         <a href="#sign-modal" data-toggle="modal" className="btn btn-shape btn-shape-primary"><i className="fas fa-shopping-cart"></i> Enroll in Course</a>
                                                     )}

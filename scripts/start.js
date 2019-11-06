@@ -111,7 +111,6 @@ checkBrowsers(paths.appPath, isInteractive)
         return console.log(err);
       }
       if (isInteractive) {
-        console.log("hi");
         clearConsole();
       }
 

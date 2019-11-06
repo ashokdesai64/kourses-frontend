@@ -5,7 +5,7 @@ import Footer from '../src/footer';
 import Apicall from './services/get_course_all';
 import landing_png from '../src/assets/images/landing.png';
 import OwlCarousel from 'react-owl-carousel';
-import helper from './services/genral_helper';
+import Helper from './services/genral_helper';
 
 class home extends Component {
 
@@ -20,7 +20,13 @@ class home extends Component {
                 <div className="landing-text">
                   <h1>Learn the Skills to Land Your Dream Job</h1>
                   <p>Clear, concise and practical training with no fluff</p>
-                  <Link to="/home" role="button" className="btn btn-shape btn-shape-xl btn-shape-primary">Join 5000+ Happy Students</Link>
+                  {
+                    Helper.get_user() ?(
+                      <Link to="/all_course" role="button" className="btn btn-shape btn-shape-xl btn-shape-primary">Join 5000+ Happy Students</Link>
+                    ):(
+                      <a href="#sign-modal" className="btn btn-shape btn-shape-xl btn-shape-primary" role="button" data-toggle="modal" data-target="#sign-modal" aria-hidden="true">Join 5000+ Happy Students</a>
+                    )
+                }
                 </div>
               </div>
             </div>
@@ -63,7 +69,7 @@ class home extends Component {
                 <OwlCarousel className="owl-theme testimonial-carousel " items={1}   >
                   <div className="testimonial-item item">
                     <div className="testi-avatar">
-                      <img src={helper.img_url("avatar-testi.jpeg")}  className="img-fluid img-thumbnail" alt=""/>
+                      <img src={Helper.img_url("avatar-testi.jpeg")}  className="img-fluid img-thumbnail" alt=""/>
                     </div>
                     <div className="testimonial-content">
                       <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus illum alias laborum nam, fuga molestiae quidem consectetur architecto dignissimos,
@@ -73,7 +79,7 @@ class home extends Component {
                   </div>
                   <div className="testimonial-item item">
                     <div className="testi-avatar">
-                      <img src={helper.img_url("james.jpg")}  className="img-fluid img-thumbnail" alt=""/>
+                      <img src={Helper.img_url("james.jpg")}  className="img-fluid img-thumbnail" alt=""/>
                     </div>
                     <div className="testimonial-content">
                       <p>Similique et facilis doloremque eum dolorem veritatis repellendus sit, corporis cupiditate
@@ -83,7 +89,7 @@ class home extends Component {
                   </div>
                   <div className="testimonial-item item">
                     <div className="testi-avatar">
-                      <img src={helper.img_url('2824_20180831123921.jpg')} className="img-fluid img-thumbnail" alt=""/>
+                      <img src={Helper.img_url('2824_20180831123921.jpg')} className="img-fluid img-thumbnail" alt=""/>
                     </div>
                     <div className="testimonial-content">
                       <p>Illum provident tempora autem asperiores, Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -101,7 +107,7 @@ class home extends Component {
               viewBox="0 0 600 400" style={{ enableBackground: 'new 0 0 600 400' }} xmlSpace="preserve">
                     <defs>
               <pattern id="news-item-2" patternUnits="userSpaceOnUse" width="100%" height="100%">
-                      <image xlinkHref={helper.img_url("testimonial-bg.jpg")}  />
+                  <image xlinkHref={Helper.img_url("testimonial-bg.jpg")}  />
                         </pattern>
             </defs>
               <path className="st0" d="M71,350L0,0c0,0,0,0.6,0,0l0,0h600l0,0v400l0,0H137C105,400,79,386,71,350z" style={{ fill: 'url(#news-item-2)' }} />

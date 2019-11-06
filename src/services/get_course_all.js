@@ -27,9 +27,6 @@ class All_course extends Component {
 
 
     render() {
-        if (this.state.isLoading) {
-            return <p>Loading ...</p>;
-        }
         const options = {
             loop: false,
             margin: 15,
@@ -62,19 +59,29 @@ class All_course extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="popular-carousel">
-                            <OwlCarousel className="owl-theme" items={1} options={options}  responsive={options.responsive} >
-                            {
-                                this.state.course.map((obj, key) =>
-                                    <div className="item course-card mb-3" key={key}>
-                                        <Courseheader action_līnk={Helper.get_user() ? '/enroll/' + obj.course_slug + '' : '/courses/' + obj.course_slug + ''} lecture={obj.lecture_count} lesson={obj.lesson_count} image={obj.image} />
-                                        <Coursebody title={obj.title} subtitle={obj.subtitle} />
-                                        <Coursefooter title={true} username={obj.auhtorname} image={obj.auhtorimage} />
+                        {
+                            !this.state.isLoading && this.state.course ? (
+                                <div className="popular-carousel">
+                                    <OwlCarousel className="owl-theme" items={1} options={options}  responsive={options.responsive} >
+                                    {
+                                        this.state.course.map((obj, key) =>
+                                            <div className="item course-card mb-3" key={key}>
+                                                <Courseheader action_līnk={Helper.get_user() ? '/enroll/' + obj.course_slug + '' : '/courses/' + obj.course_slug + ''} lecture={obj.lecture_count} lesson={obj.lesson_count} image={obj.image} />
+                                                <Coursebody title={obj.title} subtitle={obj.subtitle} />
+                                                <Coursefooter title={true} username={obj.auhtorname} image={obj.auhtorimage} />
+                                            </div>
+                                        )
+                                    }
+                                    </OwlCarousel>
+                                </div>
+                            ):(
+                                <div className="loader-container">
+                                    <div className="progress-loader float shadow-loder">
+                                        <div className="progress__item"></div>
                                     </div>
-                                )
-                            }
-                            </OwlCarousel>
-                        </div>
+                                </div>
+                            )
+                        }
                     </div>
                 </section>
             </React.Fragment>

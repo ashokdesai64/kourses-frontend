@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Loginmodal from '../src/component/login_modal';
 import Registermodal from '../src/component/register_modal';
 import Forgetmodal from '../src/component/forget_password';
@@ -14,16 +15,16 @@ class footer_call extends Component {
                     <div className="container">
                         <ul className="list-unstyled footer-menu">
                             <li className="nav-item active">
-                                <a className="nav-link" href="false">All Courses</a>
+                                 <Link to="/all_course" className="nav-link">All Courses</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="learn">Learning Paths</a>
+                                 <Link to="/learn-path" className="nav-link">Learning Paths</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="about">About</a>
+                                 <Link to="/about" className="nav-link">About</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="contact">Contact</a>
+                                 <Link to="/contact-us" className="nav-link">Contact</Link>
                             </li>
                         </ul>
                         <p className="copy-right">© 2018 Courses. All rights reserved.</p>

@@ -102,7 +102,7 @@ class Chnage_password extends Component {
                         </div>
                     </div>
                     <div className="sign-btn">
-                        <button type="submit" className="btn btn-shape btn-shape-primary btn-shape-lg cng_pass">Chnage Password</button>
+                        <button type="submit" className="btn btn-shape btn-shape-primary btn-shape-lg cng_pass">Change Password</button>
                     </div>
                 </form>
             </div>

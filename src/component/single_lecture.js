@@ -25,35 +25,70 @@ class lecture extends Component {
                 {
                     this.props.data.map((value, no) =>
                         <div key={no} className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-                            <Link to={Helper.get_user() ? "/course/" + this.props.course_slug + "/lesson/" + this.props.lesson_slug + "/lecture/" + value.lecture_slug + "" : '#sign-modal'} data-toggle={!Helper.get_user() ? "modal" : 'none'} className={'curriculum-video_card ' + (Helper.get_user() && (value.c === "complete" ? "curr-watch_completed" : this.state.no === 0 && check ? (check = false , "curr-next_lecture") : "" ))}> <div className="c-v_head"> {
+                            {
+                                Helper.get_user() ?(
+                                    <Link to={"/course/" + this.props.course_slug + "/lesson/" + this.props.lesson_slug + "/lecture/" + value.lecture_slug + ""} className={'curriculum-video_card ' + (value.c === "complete" ? "curr-watch_completed" : this.state.no === 0 && check ? (check = false, "curr-next_lecture") : "")}> <div className="c-v_head"> {
                                         value.key === "1" ? (
                                             <i className="fas fa-file-alt"></i>
                                         ) : (
-                                            <i className="fas fa-video"></i>
-                                        )
+                                                <i className="fas fa-video"></i>
+                                            )
                                     }
-                                    {
-                                        (Helper.get_user() &&
-                                            <span className="lecture-status">
-                                                <span className="status-icon"></span>
-                                            </span>
-                                        )
-                                    }
-                                </div>
-                                <img src={Helper.img_backend_url(this.props.image)} className="img-fluid" alt="video images" />
-                                <div className="lecture_name">
-                                    <h6>{value.title}</h6>
-                                </div>
-                                {
-                                    (!Helper.get_user() &&
-                                        (  
-                                            value.c === "incomplete" &&
-                                            this.define(value),
-                                            <span className="btn btn-shape btn-shape-primary lecture-start_btn btn-shape-sm">Start</span>
-                                        )
-                                    )
-                                }
-                            </Link>
+                                        {
+                                            (Helper.get_user() &&
+                                                <span className="lecture-status">
+                                                    <span className="status-icon"></span>
+                                                </span>
+                                            )
+                                        }
+                                    </div>
+                                        <img src={Helper.img_backend_url(this.props.image)} className="img-fluid" alt="video images" />
+                                        <div className="lecture_name">
+                                            <h6>{value.title}</h6>
+                                        </div>
+                                        {
+                                            (!Helper.get_user() &&
+                                                (
+                                                    value.c === "incomplete" &&
+                                                    this.define(value),
+                                                    <span className="btn btn-shape btn-shape-primary lecture-start_btn btn-shape-sm">Start</span>
+                                                )
+                                            )
+                                        }
+                                    </Link>
+                                ):(
+                                        <a href='#sign-modal' data-toggle={!Helper.get_user() ? "modal" : 'none'} className='curriculum-video_card'> <div className="c-v_head"> {
+                                            value.key === "1" ? (
+                                                <i className="fas fa-file-alt"></i>
+                                            ) : (
+                                                    <i className="fas fa-video"></i>
+                                                )
+                                        }
+                                            {
+                                                (Helper.get_user() &&
+                                                    <span className="lecture-status">
+                                                        <span className="status-icon"></span>
+                                                    </span>
+                                                )
+                                            }
+                                        </div>
+                                            <img src={Helper.img_backend_url(this.props.image)} className="img-fluid" alt="video images" />
+                                            <div className="lecture_name">
+                                                <h6>{value.title}</h6>
+                                            </div>
+                                            {
+                                                (!Helper.get_user() &&
+                                                    (
+                                                        value.c === "incomplete" &&
+                                                        this.define(value),
+                                                        <span className="btn btn-shape btn-shape-primary lecture-start_btn btn-shape-sm">Start</span>
+                                                    )
+                                                )
+                                            }
+                                        </a>
+
+                                )
+                            }
                         </div>
                     )
                 }

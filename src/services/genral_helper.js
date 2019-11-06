@@ -28,7 +28,8 @@ class  helper  {
 
     api_call(link){
         if(!link){
-            return 'http://localhost:8080/';
+            // return `http://${window.location.hostname}:8080/`;
+            return `http://localhost:8080/`;
         }else{
             return `http://localhost:8080/${link}`;
         }

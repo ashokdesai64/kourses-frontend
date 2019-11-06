@@ -1,13 +1,13 @@
 import $ from 'jquery';
 
-$(document).bind("contextmenu", function (e) {
-    e.preventDefault();
-});
-$(document).keydown(function (e) {
-    if (e.which === 123) {
-        return false;
-    }
-});
+// $(document).bind("contextmenu", function (e) {
+//     e.preventDefault();
+// });
+// $(document).keydown(function (e) {
+//     if (e.which === 123) {
+//         return false;
+//     }
+// });
 
 $(document).on('keyup', '.float-input', function () {
     if ($(this).val()) {
@@ -54,6 +54,11 @@ $(document).on('click', '#openSignUp', function () {
     $('#create-content').removeClass('d-none');
 });
 
+
+$("#create-content,#login-content,#sign-modal,#check_otp,#forgot-content").on("hidden.bs.modal", function () {
+    $("#create-content,#login-content,#sign-modal,#check_otp,#forgot-content")[0].reset();
+});
+
 $(document).on('keyup','#search_bar',function () {
     var check = 0;
     $('#nocoursetitle').html('');
@@ -79,10 +84,11 @@ $(document).on('keyup','#search_bar',function () {
 });
 
 $(document).on('click', 'button.close',function () {
-        $("input[type=text], textarea").val("");
-        $('#login-content').removeClass('d-none');
-        $('#create-content').addClass('d-none');
-        $('#forgot-content').addClass('d-none');
-        $('#check_otp').addClass('d-none');
-        $('#cng_password').addClass('d-none');
+    $("input[type=text], textarea").val("");
+    $('#login-content').removeClass('d-none');
+    $('#create-content').addClass('d-none');
+    $('#forgot-content').addClass('d-none');
+    $('#check_otp').addClass('d-none');
+    $('#cng_password').addClass('d-none');
+    $("label.error").remove();
 });
